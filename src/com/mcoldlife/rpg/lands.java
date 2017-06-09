@@ -1,172 +1,456 @@
 package com.mcoldlife.rpg;
 
-import java.util.Arrays;
-
-import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.CustomConfig;
-
-import ReturnBundle.ReturnBundle;
+import com.essentials.mcoldlife.main.Reference;
+import com.mcoldlife.objects.OLChunk;
+import com.mcoldlife.objects.OLCity;
+import com.mcoldlife.objects.OLLand;
+import com.mcoldlife.objects.OLPlot;
+import com.mcoldlife.objects.RPGManager;
+import com.mcoldlife.objects.RPPlayer;
+import com.mcoldlife.objects.Vector2D;
 
 public class lands {
 
-	public static ReturnBundle<Boolean> createLand(String name, Player founder){
-		
-		Chunk landBaseChunk = founder.getLocation().getChunk();
-		String chunkID = ChunkUtils.generateId(landBaseChunk);
-		if()
-		
-	}
+	static String prefix = Reference.CHAT_PREFIX;
 	
-	
-	
-	public static ReturnBundle<Boolean> _createLand(String name, Player founder){
-		Chunk landBaseChunk = founder.getWorld().getChunkAt(founder.getLocation());
-		String chunkID = ChunkUtils.generateId(landBaseChunk);
-		if(chunkConquered(landBaseChunk)){
-			return (new ReturnBundle<>(false)).setMessageCode(reference.CODE_CHUNK_OWNED_BY_OTHER_LAND);
-		}else if(createLandsConfig(name, founder, landBaseChunk)){
-			String fileName = name + ".yml";
-			CustomConfig.addToArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS, new String[]{chunkID});
-			CustomConfig.set(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_OWNER, founder.getUniqueId().toString());
-			for(int x = -1; x <=1; x++){
-				for(int z = -1; z <= 1; z++){
-					if(x == 0 && z == 0)continue;
-					Chunk currentChunk = founder.getWorld().getChunkAt(landBaseChunk.getX() + x, landBaseChunk.getZ() + z);
-					if(!chunkConquered(currentChunk)){
-						String id = ChunkUtils.generateId(currentChunk);
-						CustomConfig.addToArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS, new String[]{id});
-					}
-				}
-			}
-			return (new ReturnBundle<>(true));
-		}else{
-			return (new ReturnBundle<>(true)).setMessageCode(reference.CODE_EXISTING);
-		}
+	/**Creates a new Land based on the name and founder. This function
+	 * sends Messages to the Player except the created Message.
+	 * @param landName The name for the Land
+	 * @param founder Founder of the land and the owner of it.
+	 * @return true if the Land was successfully created.
+	 */
+	public static boolean createLand(String landName, RPPlayer founder){
+		Player p = founder.getBukkitPlayer();
 		
-	}
-	
-	public static ReturnBundle<Boolean> expandLand(Player founder, Chunk chunk){
-		
-		String chunkId = ChunkUtils.generateId(chunk);
-		String[] lands = CustomConfig.getFilesInFolder(reference.FOLDER_LANDS.toString());
-		if(getChunkLand(chunk) != null)return (new ReturnBundle<>(false).setMessageCode(reference.CODE_CHUNK_OWNED_BY_OTHER_LAND));
-		
-		for(String land : lands){
-			
-			if(CustomConfig.get(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_OWNER).equals(founder.getUniqueId().toString())){
-				String[] chunks = (String[]) CustomConfig.getArray(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS);
-				for(String chunkID : chunks){
-					for(int x = -1; x <= 1; x++){
-						for(int y = -1; y <= 1; y++){
-							
-							Chunk currentChunk = founder.getWorld().getChunkAt(x, y);
-							String id = ChunkUtils.generateId(currentChunk);
-							
-							if(chunkID.equalsIgnoreCase(id) && !chunkID.equalsIgnoreCase(chunkId)){
-								CustomConfig.addToArray(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS, new String[]{chunkId});
-								return (new ReturnBundle<>(true));
-							}
-							
-						}
-					}
-				}
-				return (new ReturnBundle<>(false).setMessageCode(reference.CODE_CHUNK_NOT_CONNECTED));
-				
-			}
-		}
-		return (new ReturnBundle<>(false).setMessageCode(reference.CODE_PLAYER_NOT_OWNER));
-		
-	}
-	
-	public static boolean chunkConquered(Chunk chunk){
-		
-		boolean exists = false;
-		String id = ChunkUtils.generateId(chunk);
-		String[] lands = CustomConfig.getFilesInFolder(reference.FOLDER_LANDS.toString());
-		
-		for(String land : lands){
-			
-			String[] chunkIds = (String[]) CustomConfig.getArray(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS);
-			for(String chunkId : chunkIds){
-				if(chunkId.equalsIgnoreCase(id)){
-					exists = true;
-					break;
-				}
-			}
-			
-		}
-		
-		return exists;
-	}
-	
-	public static boolean createLandsConfig(String name, Player founder, Chunk landBaseChunk){
-		String fileName = name + ".yml";
-		if(CustomConfig.exists(fileName, reference.FOLDER_LANDS.toString())){
+		if(CustomConfig.exists(landName + ".yml", reference.FOLDER_LANDS.toString())){
+			p.sendMessage(prefix + pMsg.ERR_LAND_EXISTS);
 			return false;
+		}
+		
+		if(founder.getLand() == null){
+			OLChunk baseChunk = new OLChunk(founder.getBukkitPlayer().getLocation().getChunk());
+			if(baseChunk.getLand() == null){
+				baseChunk.setLand(landName);
+				
+				OLLand land = new OLLand(landName);
+				RPGManager.lands.put(landName, land);
+				founder.setLand(RPGManager.lands.get(landName));
+				return land.createLand(founder, baseChunk);
+				
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_CHUNK_HAS_LAND);
+				return false;
+			}
+			
+			
 		}else{
-			CustomConfig.create(name + ".yml", reference.FOLDER_LANDS.toString());
-			CustomConfig.addToArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS, new String[]{null});
-			CustomConfig.addToArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CITYS, new String[]{null});
-			CustomConfig.addToArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_PLAYERS, new String[]{null});
-			CustomConfig.removeFromArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CHUNKS, new String[]{null});
-			CustomConfig.removeFromArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_CITYS, new String[]{null});
-			CustomConfig.removeFromArray(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_PLAYERS, new String[]{null});
-			CustomConfig.set(fileName, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_NAME, name);
-			
-			CustomConfig.createFolder(reference.FOLDER_LANDS.resolve(name).toString());
-			
-			return true;
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_IN_LAND);
+			return false;
 		}
 	}
 	
-	public static boolean addPlayerToLand(Player founder, Player child){
+	/**Creates a new City based on the name and founder. This function
+	 * sends Messages to the Player except the created Message.
+	 * @param cityName The name for the City
+	 * @param founder Founder of the City and the owner of it.
+	 * @return true if the City was successfully created.
+	 */
+	public static boolean createCity(String cityName, RPPlayer founder){
+		Player p = founder.getBukkitPlayer();
 		
-		String[] lands = CustomConfig.getFilesInFolder(reference.FOLDER_LANDS.toString());
-		for(String land : lands){
-			
-			String landOwner = (String) CustomConfig.get(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_OWNER);
-			if(landOwner.equals(founder.getUniqueId().toString())){
-				CustomConfig.set(child.getUniqueId().toString() + ".yml", reference.FOLDER_PLAYERS.toString(), reference.PATH_PLAYER_LAND, land);
-				CustomConfig.set(child.getUniqueId().toString() + ".yml", reference.FOLDER_PLAYERS.toString(), reference.PATH_PLAYER_CITY, null);
+		if(CustomConfig.exists(cityName + ".yml", reference.FOLDER_CITYS.toString())){
+			p.sendMessage(prefix + pMsg.ERR_CITY_EXISTS);
+			return false;
+		}
+		
+		if(founder.get_city() == null){
+			OLChunk baseChunk = new OLChunk(founder.getBukkitPlayer().getLocation().getChunk());
+			if(baseChunk.getCity() == null){
+				if(baseChunk.getLand() == null){
+					baseChunk.setLand(founder.getLand().getName());
+				}
+				if(baseChunk.getLand() == founder.getLand().getName()){
+					OLCity city = new OLCity(cityName);
+					RPGManager.citys.put(cityName, city);
+					founder.setCity(city);
+					return city.createCity(founder, baseChunk);
+				}else{
+					p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_OTHER_LAND);
+					return false;
+				}
+				
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_CHUNK_HAS_CITY);
+				return false;
 			}
 			
+			
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_IN_CITY);
+			return false;
+		}
+	}
+	
+	/**Creates a new Plot inside the City
+	 * @param plotName Name of the Plot
+	 * @param cityOwner Owner of the City
+	 * @return
+	 */
+	public static boolean createPlot(String plotName, RPPlayer cityOwner, int price){
+		Player p = cityOwner.getBukkitPlayer();
+		OLCity city = cityOwner.get_city();
+		
+		if(city == null){
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
+			return false;
+		}
+		
+		//Checks if Player has Coordinates for the Plot.
+		if(cityOwner.getPosPlotCoord(0) == null){
+			p.sendMessage(prefix + pMsg.ERR_POS1_NOT_SET);
+			return false;
+		}else if(cityOwner.getPosPlotCoord(1) == null){
+			p.sendMessage(prefix + pMsg.ERR_POS2_NOT_SET);
+			return false;
+		}
+		
+		if(city.getOwner() == cityOwner.getBukkitPlayer().getUniqueId()){
+			if(!city.plotExists(plotName)){
+				//Make Plot
+				return city.makePlot(plotName, new Vector2D(cityOwner.getPosPlotCoord(0)), new Vector2D(cityOwner.getPosPlotCoord(1)), price);
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_PLOT_EXISTS);
+			}
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 		}
 		
 		
 		return false;
-		
 	}
 	
-	public static boolean removePlayerFromLand(Player founder, Player child){
-		String[] lands = CustomConfig.getFilesInFolder(reference.FOLDER_LANDS.toString());
-		for(String land : lands){
-			
-			String landOwner = (String) CustomConfig.get(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_OWNER);
-			if(landOwner.equals(founder.getUniqueId().toString())){
-				String[] landPlayers = (String[]) CustomConfig.getArray(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_PLAYERS);
-				if(Arrays.asList(landPlayers).contains(child.getUniqueId().toString())){
-					
-					CustomConfig.removeFromArray(land, reference.FOLDER_LANDS.toString(), reference.PATH_LANDS_PLAYERS, new String[]{child.getUniqueId().toString()});
+	/**Adds a Corner of a Plot to the Player, to be used later on.
+	 * @param cityOwner The Owner of the City, where the Coordinate gets added.
+	 * @param index The index of the Corner. 0 is corner 1 and 1 is corner 2
+	 * @param corner The Location of the Corner
+	 * @return true if it gets added, false if not.
+	 */
+	public static boolean addPlotCorner(RPPlayer cityOwner, int index, Location corner){
+		Player p = cityOwner.getBukkitPlayer();
+		
+		if(cityOwner.get_city() == null){
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
+			return false;
+		}
+		
+		OLChunk chunk = new OLChunk(corner.getChunk());
+		if(chunk.getCity() == cityOwner.get_city().getName()){
+			if(cityOwner.get_city().getOwner() == cityOwner.getBukkitPlayer().getUniqueId()){
+				if(cityOwner.get_city().inPlot(new Vector2D(corner)) == null){
+					cityOwner.addPossPlotCoord(corner, index);
 					return true;
-					
+				}else{
+					p.sendMessage(prefix + pMsg.ERR_POS_IN_PLOT);
+				}
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+			}
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_POS_NOT_IN_CITY);
+		}
+		return false;
+	}
+
+	/**Deletes a Plot by given Name
+	 * @param cityOwner Owner of the City and Command Executor
+	 * @param name Name of the Plot
+	 * @return true if deleted.				
+	 */
+	public static boolean deletePlot(RPPlayer cityOwner, String name){
+		Player p = cityOwner.getBukkitPlayer();
+		OLCity city = cityOwner.get_city();
+		if(city == null){
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
+			return false;
+		}
+		if(city.getOwner() == p.getUniqueId()){
+			if(city.plotExists(name)){
+				if(!city.plotOwned(name)){
+					city.deletePlot(name);
+					return true;
+				}else{
+					p.sendMessage(prefix + pMsg.ERR_PLOT_OWNED);
+				}
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_PLOT_NOT_EXISTS);
+			}
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+		}
+
+		
+		return false;
+	}
+
+	/**Claims Plot for Player if he doesn't own one
+	 * @param player Player who claims
+	 * @param name Name of the Plot. null if you want to use local position.
+	 * @return true if claimed.
+	 */
+	public static boolean claimPlot(RPPlayer player, String name){
+		Player p = player.getBukkitPlayer();
+		OLCity city = player.get_city();
+		if(city == null){
+			if(name == null){
+				OLChunk localChunk = new OLChunk(p.getLocation().getChunk());
+				if(player.getLand() == null){
+					player.setLand(RPGManager.lands.get(localChunk.getLand()));
+				}
+				player.setCity(RPGManager.citys.get(localChunk.getCity()));
+			}
+		}
+		
+		if(city.getPlot(player) != null){
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_OWNS_PLOT);
+			return false;
+		}
+		if(!city.plotOwned(name)){
+			if(name == null){
+				OLPlot plot = city.inPlot(new Vector2D(p.getLocation()));
+				if(plot == null){
+					p.sendMessage(prefix + pMsg.ERR_NOT_INSIDE_PLOT);
+				}else{
+					plot.setOwner(p.getUniqueId());
+					return true;
+				}
+			}else{
+				if(!city.plotExists(name)){
+					p.sendMessage(prefix + pMsg.ERR_PLOT_NOT_EXISTS);
+				}else{
+					OLPlot plot = city.getPlot(name);
+					plot.setOwner(p.getUniqueId());
+					return true;
 				}
 			}
-			
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLOT_OWNED);
 		}
+		
 		return false;
 	}
 	
-	public static String getChunkLand(Chunk chunk){
+	/**Claims Chunk for city of Player if Player is owner
+	 * @param player Owner of the city
+	 * @return true if claimed
+	 */
+	public static boolean claimChunk(RPPlayer player){
+		Player p = player.getBukkitPlayer();
+		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
 		
-		return ChunkUtils.getLand(chunk);
+		if(player.get_city().getOwner() != p.getUniqueId()){
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+			return false;
+		}
+		
+		if(chunk.getCity() != player.get_city().getName()){
+			if(chunk.getLand() == player.getLand().getName()){
+				chunk.setCity(player.get_city().getName());
+				player.get_city().addChunk(chunk);
+				return true;
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_OTHER_LAND);
+			}
+			
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_SAME_CITY);
+		}
+		return false;
+		
+	}
+
+	/**Claims Chunk for Land if Player is Owner
+	 * @param player Owner of land
+	 * @return True if claimed
+	 */
+	public static boolean contestChunk(RPPlayer player){
+		Player p = player.getBukkitPlayer();
+		OLLand land = player.getLand();
+		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
+		
+		if(land.getOwner() != p.getUniqueId()){//TODO: Soldiers can contest too
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_LAND);
+			return false;
+		}
+		
+		if(chunk.getLand() == land.getName()){
+			chunk.setLand(null);
+			land.addChunk(chunk);
+			return true;
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_OTHER_LAND);
+		}
+		
+		return false;
+	}
+
+	/**Gets the City if player is inside one
+	 * @param player Player to check
+	 * @return The OLCity or null
+	 */
+	public static OLCity inCity(RPPlayer player){
+		Player p = player.getBukkitPlayer();
+		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
+		
+		if(RPGManager.citys.containsKey(chunk.getCity()))
+		return RPGManager.citys.get(chunk.getCity());
+		
+		return null;
 	}
 	
-	public static String getPlayerLand(Player player){
-		String id = player.getUniqueId().toString();
+	/**Gets the Land if player is inside one
+	 * @param player Player to check
+	 * @return The OLLand or null
+	 */
+	public static OLLand inLand(RPPlayer player){
+		Player p = player.getBukkitPlayer();
+		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
 		
-		String land = CustomConfig.get(id + ".yml", reference.FOLDER_PLAYERS.toString(), reference.PATH_PLAYER_LAND).toString();
-		return land;
+		if(RPGManager.lands.containsKey(chunk.getLand()))
+		return RPGManager.lands.get(chunk.getLand());
+		
+		return null;
 	}
+	
+	/**Gets the Land if player is inside one
+	 * @param player Player to check
+	 * @return The OLPlot or null
+	 */
+	public static OLPlot inPlot(RPPlayer player){
+		OLCity city = inCity(player);
+		
+		if(city != null)
+		return city.inPlot(new Vector2D(player.getBukkitPlayer().getLocation()));
+		
+		return null;
+	}
+	
+	/**Sets the Price of a Plot
+	 * @param player RPPlayer, owner of city
+	 * @param price Price of Plot
+	 * @param plotName Name of Plot
+	 * @return
+	 */
+	public static boolean setPlotPrice(RPPlayer player, int price, String plotName){
+		OLCity city = player.get_city();
+		Player p = player.getBukkitPlayer();
+		if(!isCityOnwer(player))p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+		
+		if(city.plotExists(plotName)){
+			if(city.getPlot(plotName).getOwner() == null){
+				city.getPlot(plotName).setPrice(price);
+				return true;
+			}else{
+				p.sendMessage(prefix + pMsg.ERR_PLOT_OWNED);
+			}
+			
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLOT_NOT_EXISTS);
+		}
+		
+		
+		return false;
+	}
+
+	/**Checks if Player is Owner of his city.
+	 * Function doesnt send Player messages
+	 * @param player RPPLayer to check
+	 * @return true if player is Owner and False if not.
+	 */
+	public static boolean isCityOnwer(RPPlayer player){
+		
+		OLCity city = player.get_city();
+		if(city != null){
+			if(city.getOwner() == player.getBukkitPlayer().getUniqueId()){
+				return true;
+			}
+		}				
+		return false;
+	}
+	
+	/**Checks if Player is Owner of his Land.
+	 * Function doesn't send Player messages
+	 * @param player RPPLayer to check
+	 * @return true if player is Owner and False if not.
+	 */
+	public static boolean isLandOnwer(RPPlayer player){
+		
+		OLLand land = player.getLand();
+		if(land != null){
+			if(land.getOwner() == player.getBukkitPlayer().getUniqueId()){
+				return true;
+			}
+		}				
+		return false;
+	}
+	
+	/**Unclaim's Players Plot and adds Price/2 to his money.
+	 * @param player
+	 * @return
+	 */
+	public static boolean unClaimPlot(RPPlayer player){
+		OLPlot plot = player.get_city().getPlot(player);
+		Player p = player.getBukkitPlayer();
+		if(plot != null){
+			int price = plot.getPrice();
+			plot.setOwner(null);
+			Money.addMoney(player, price / 2);
+			return true;
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_OWNS_NO_PLOT);
+		}
+		return false;
+		
+	}
+
+	/**Set's city taxes
+	 * @param player Owner of city
+	 * @param tax Tax to set
+	 * @return true if set.
+	 */ 
+	public static boolean setCityTaxes(RPPlayer player, int tax){
+		Player p = player.getBukkitPlayer();
+		
+		if(isCityOnwer(player)){
+			player.get_city().setTax(tax);
+		}else{
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+		}
+		
+		return true;
+	}
+
+	/**Adds Player to Land
+	 * @param player Player to add
+	 * @param landName name of land
+	 * @return true if added
+	 */
+	public static boolean joinLand(RPPlayer player, String landName){
+		
+		if(!RPGManager.lands.containsKey(landName)){
+			player.getBukkitPlayer().sendMessage(prefix + pMsg.ERR_LAND_NOT_EXISTS);
+		}
+		
+		if(player.getLand() == null){
+			RPGManager.lands.get(landName).addPlayer(player);
+			return true;
+		}else{
+			player.getBukkitPlayer().sendMessage(prefix + pMsg.ERR_PLAYER_IN_LAND);
+		}
+		return false;
+	}
+
 }
