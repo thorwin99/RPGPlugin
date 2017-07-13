@@ -67,8 +67,12 @@ public class reference {
 	public static World RPG_WORLD = null;
 	public static int JOB_CHANGE_PRICE = -1;
 	
+	//Plugin
+	public static rpg PLUGIN_REFERENCE;
+	
 	public static void initReferences(PluginManager pm, rpg plugin){
 		
+		PLUGIN_REFERENCE = plugin;
 		JOB_CHANGE_PRICE = plugin.getConfig().getInt(PATH_JOBS_CHANGE_PRICE);
 		RPG_WORLD = plugin.getServer().getWorld(plugin.getConfig().getString(PATH_WORLD_NAME));
 		FOLDER_CLASSES = plugin.getDataFolder().toPath().resolve("Jobs");

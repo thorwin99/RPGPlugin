@@ -83,6 +83,8 @@ public class pMsg {
 	
 	public static String MSG_JOB_CHANGED = "§aDu hast deinen Job zu §6{job} §ageändert.";
 	
+	public static String MSG_EVENT_STOLEN = "§cDu wirst beklaut!";
+	
 	//Titles
 	public static String TITLE_ENTER_CITY = "§aWilkommen in der Stadt";
 	public static String TITLE_ENTER_LAND = "§aWilkommen im Land";
@@ -90,4 +92,7 @@ public class pMsg {
 	//Subtitles
 	public static String STITLE_ENTER_CITY = "§6{city}";
 	public static String STITLE_ENTER_LAND = "§6{land}";
+	
+	//Container Title
+	public static String CTITLE_PLAYER_INVENTORY = "§c{player} - §6Diebstahl";
 }

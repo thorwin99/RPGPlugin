@@ -397,6 +397,35 @@ public class lands {
 		return false;
 	}
 	
+	/**Checks if Player is Owner of his city.
+	 * Function doesn't send Player messages
+	 * @param player RPPLayer to check
+	 * @return true if player is Owner and False if not.
+	 */
+	public static boolean isCityOnwer(RPPlayer player, OLCity city){
+		if(city != null){
+			if(city.getOwner() == player.getBukkitPlayer().getUniqueId()){
+				return true;
+			}
+		}				
+		return false;
+	}
+	
+	/**Checks if Player is Owner of his Land.
+	 * Function doesn't send Player messages
+	 * @param player RPPLayer to check
+	 * @return true if player is Owner and False if not.
+	 */
+	public static boolean isLandOnwer(RPPlayer player, OLLand land){
+		if(land != null){
+			if(land.getOwner() == player.getBukkitPlayer().getUniqueId()){
+				return true;
+			}
+		}				
+		return false;
+	}
+	
+	
 	/**Unclaim's Players Plot and adds Price/2 to his money.
 	 * @param player
 	 * @return
