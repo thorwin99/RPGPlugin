@@ -3,6 +3,8 @@ package com.mcoldlife.objects.craftingMenu;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -77,9 +79,13 @@ public class CraftingMenu implements Listener{
 	private void craftItem(Player p, CraftingMenuItemStack item){
 		for(ItemStack i : item.getIngredients()){
 			p.getInventory().remove(i);
+			if(i.getType() == Material.LAVA_BUCKET || i.getType() == Material.WATER_BUCKET){
+				p.getInventory().addItem(new ItemStack(Material.BUCKET, 1));
+			}
 		}
 		p.getInventory().addItem(item);
 		p.updateInventory();
+		p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.75f, 0);
 	}
 	
 	@EventHandler

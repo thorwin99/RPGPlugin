@@ -2,3 +2,17 @@ name: RPGPlugin
 author: MCOldLife
 version: 1.0
 main: com.mcoldlife.rpg.rpg
+
+commands:
+    city:
+        description: Base City Command
+    job:
+        description: Base Job Command
+    land:
+        description: Base Land Command
+    money:
+        description: Shows Players Money
+    pay:
+        description: Pays money to other Player
+    plot:
+        description: Base Plot Command

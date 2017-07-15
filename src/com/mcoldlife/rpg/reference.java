@@ -31,6 +31,7 @@ public class reference {
 	public static String PATH_LAND_CITYS = "Region.Citys";
 	public static String PATH_LAND_OWNER = "Ruler";
 	public static String PATH_LAND_CREATED = "Created";
+	public static String PATH_LANDS = "Lands";
 	
 	//City config fields
 	public static String PATH_CITY_CHUNKS = "Chunks";
@@ -62,6 +63,10 @@ public class reference {
 	public static Path FOLDER_LANDS = null;
 	public static Path FOLDER_CHUNKS = null;
 	public static Path FOLDER_CITYS = null;
+	public static Path CONFIG_FOLDER = null;
+	
+	//Files
+	public static String FILE_LANDS = "Lands.yml";
 	
 	//Worlds
 	public static World RPG_WORLD = null;
@@ -80,5 +85,6 @@ public class reference {
 		FOLDER_LANDS = plugin.getDataFolder().toPath().resolve("Lands");
 		FOLDER_CHUNKS = plugin.getDataFolder().toPath().resolve("Chunks");
 		FOLDER_CITYS = plugin.getDataFolder().toPath().resolve("Citys");
+		CONFIG_FOLDER = plugin.getDataFolder().toPath();
 	}
 }

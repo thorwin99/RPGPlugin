@@ -52,6 +52,9 @@ public class OLLand {
 		if(_isCreated) return false;
 		
 		_isCreated = true;
+		
+		CustomConfig.addToArray(reference.FILE_LANDS, reference.CONFIG_FOLDER.toString(), reference.PATH_LANDS, new String[]{_name});
+		
 		//Create this City
 		CustomConfig.set(_fileName, _folder, reference.PATH_LAND_OWNER, owner.getBukkitPlayer().getUniqueId());
 		CustomConfig.set(_fileName, _folder, reference.PATH_LAND_CREATED, true);

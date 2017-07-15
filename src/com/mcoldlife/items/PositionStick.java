@@ -36,8 +36,6 @@ public class PositionStick implements OLItem{
 
 	@Override
 	public void addRecipe() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

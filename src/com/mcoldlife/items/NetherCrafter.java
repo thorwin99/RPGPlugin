@@ -1,10 +1,12 @@
 package com.mcoldlife.items;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -27,8 +29,25 @@ public class NetherCrafter implements OLItem, conditional<OLJob>{
 	
  	public NetherCrafter(){
  		List<CraftingMenuItemStack> items = new ArrayList<>();
- 		
- 		items.add(new CraftingMenuItemStack(Material.NETHER_BRICK, "§cNether Brick", )));
+ 
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_BRICK_ITEM, 1,"§cNether Brick", Arrays.asList(new ItemStack(Material.CLAY_BRICK, 1), new ItemStack(Material.LAVA_BUCKET, 1))));
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_BRICK, 1,"§cNether Brick Block", Arrays.asList(new ItemStack(Material.NETHER_BRICK_ITEM, 4))));
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_BRICK_STAIRS, 4,"§cNether Brick Stairs", Arrays.asList(new ItemStack(Material.NETHER_BRICK, 6))));
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_FENCE, 4,"§cNether Fence", Arrays.asList(new ItemStack(Material.NETHER_BRICK_ITEM, 6))));
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_STALK, 4,"§cNether Warts", Arrays.asList(new ItemStack(Material.SEEDS, 2), new ItemStack(Material.LAVA_BUCKET, 1))));
+ 		items.add(new CraftingMenuItemStack(Material.SOUL_SAND, 1,"§cSoul Sand", Arrays.asList(new ItemStack(Material.SAND, 1), new ItemStack(Material.BONE, 2))));
+ 		items.add(new CraftingMenuItemStack(Material.BLAZE_ROD, 1,"§cBlaze Rod", Arrays.asList(new ItemStack(Material.STICK, 2), new ItemStack(Material.LAVA_BUCKET, 1))));
+ 		items.add(new CraftingMenuItemStack(Material.NETHER_STAR, 1,"§cNether Star", Arrays.asList(new ItemStack(Material.DIAMOND, 32), new ItemStack(Material.BLAZE_POWDER, 5))));
+ 		items.add(new CraftingMenuItemStack(Material.QUARTZ_ORE, 1,"§cNether Quartz Ore", Arrays.asList(new ItemStack(Material.WATER_BUCKET, 1), new ItemStack(Material.LAVA_BUCKET, 1))));
+ 	
+ 		craftingMenu = new CraftingMenu(DNAME, 1, items);
+ 	}
+ 	
+ 	/**Shows crafting View to player
+ 	 * @param p Player
+ 	 */
+ 	public void showCraftingView(Player p){
+ 		craftingMenu.show(p);
  	}
  	
 	@Override

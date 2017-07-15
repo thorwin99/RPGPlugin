@@ -134,4 +134,15 @@ public class RPGManager {
 		}
 		
 	}
+	
+	/**Adds Land	if possible
+	 * @param name Name of Land
+	 * @param land OLLand
+	 */
+	public static void addLand(String name, OLLand land){
+		
+		if(!lands.containsKey(name)){
+			lands.put(name, land);
+		}
+	}
 }

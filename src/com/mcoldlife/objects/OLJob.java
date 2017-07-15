@@ -35,7 +35,7 @@ public class OLJob {
 	/**Creates Class/Job
 	 * @param breakBlocks All blocks the Player can break;
 	 * @param buildBlocks All blocks the Player can Place
-	 * @param craftItems TODO
+	 * @param craftItems All blocks the Player can craft
 	 */
 	public boolean create(List<Material> breakBlocks, List<Material> buildBlocks, List<Material> craftItems, boolean canBuildAnywhere){
 		if(!_isCreated){//TODO: maybe make lists to string lists

@@ -10,8 +10,15 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.essentials.mcoldlife.main.CustomConfig;
+import com.mcoldlife.commands.city;
+import com.mcoldlife.commands.job;
+import com.mcoldlife.commands.land;
+import com.mcoldlife.commands.money;
+import com.mcoldlife.commands.pay;
+import com.mcoldlife.commands.plot;
 import com.mcoldlife.items.NetherCrafter;
 import com.mcoldlife.objects.OLJob;
+import com.mcoldlife.objects.OLLand;
 import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.objects.jobs.Alchemist;
 import com.mcoldlife.objects.jobs.Dieb;
@@ -34,10 +41,31 @@ public class rpg extends JavaPlugin{
 		PluginManager pm = this.getServer().getPluginManager();
 		config();
 		reference.initReferences(pm, this);
+		//Register Commands
+		registerCommands();
 		//Now enable everything else
 		loadJobs();
 		registerRecipes();
 		//Load Chunks, Citys, Lands, Plots
+		loadLands();
+	}
+
+	private void loadLands() {
+		String[] lands = (String[]) CustomConfig.getArray(reference.FILE_LANDS, reference.CONFIG_FOLDER.toString(), reference.PATH_LANDS);
+		for(String land : lands){
+			OLLand l = new OLLand(land);
+			RPGManager.addLand(land, l);
+		}
+		
+	}
+
+	private void registerCommands() {
+		this.getCommand("city").setExecutor(new city());
+		this.getCommand("job").setExecutor(new job());
+		this.getCommand("land").setExecutor(new land());
+		this.getCommand("money").setExecutor(new money(this));
+		this.getCommand("pay").setExecutor(new pay());
+		this.getCommand("plot").setExecutor(new plot());
 	}
 
 	@Override
@@ -65,6 +93,7 @@ public class rpg extends JavaPlugin{
 	}
 	public void landFolder(){
 		
+		CustomConfig.create(reference.FILE_LANDS, reference.CONFIG_FOLDER.toString());
 		CustomConfig.createFolder(reference.FOLDER_LANDS.toString());
 		CustomConfig.createFolder(reference.FOLDER_CITYS.toString());
 		CustomConfig.createFolder(reference.FOLDER_CHUNKS.toString());

@@ -21,7 +21,6 @@ public class PlayerStealEvent extends Event implements Cancellable, conditional<
 	
 	@Override
 	public boolean isCancelled() {
-		// TODO Auto-generated method stub
 		return cancelled;
 	}
 
@@ -33,7 +32,6 @@ public class PlayerStealEvent extends Event implements Cancellable, conditional<
 
 	@Override
 	public HandlerList getHandlers() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

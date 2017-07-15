@@ -21,7 +21,6 @@ public class ExitLandEvent extends Event implements Cancellable{
 
 	@Override
 	public boolean isCancelled() {
-		// TODO Auto-generated method stub
 		return cancelled;
 	}
 
@@ -33,7 +32,6 @@ public class ExitLandEvent extends Event implements Cancellable{
 
 	@Override
 	public HandlerList getHandlers() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
