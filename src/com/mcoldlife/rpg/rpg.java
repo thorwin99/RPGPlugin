@@ -132,25 +132,25 @@ public class rpg extends JavaPlugin{
 	
 	private void createChainArmor(){
 		ItemStack head = new ItemStack(Material.CHAINMAIL_HELMET);
-		ShapedRecipe h = new ShapedRecipe(head);
+		ShapedRecipe h = new ShapedRecipe(reference.NAMESPACED_KEY, head);
 		h.shape("CIC","I I","   ");
 		h.setIngredient('I', Material.IRON_INGOT);
 		h.setIngredient('C', Material.COAL);
 		
 		ItemStack boot = new ItemStack(Material.CHAINMAIL_BOOTS);
-		ShapedRecipe b = new ShapedRecipe(boot);
+		ShapedRecipe b = new ShapedRecipe(reference.NAMESPACED_KEY, boot);
 		b.shape("   ","I I","C C");
 		b.setIngredient('I', Material.IRON_INGOT);
 		b.setIngredient('C', Material.COAL);
 		
 		ItemStack chest = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
-		ShapedRecipe c = new ShapedRecipe(chest);
+		ShapedRecipe c = new ShapedRecipe(reference.NAMESPACED_KEY, chest);
 		c.shape("I I","CIC","ICI");
 		c.setIngredient('I', Material.IRON_INGOT);
 		c.setIngredient('C', Material.COAL);
 		
 		ItemStack leg = new ItemStack(Material.CHAINMAIL_LEGGINGS);
-		ShapedRecipe l = new ShapedRecipe(leg);
+		ShapedRecipe l = new ShapedRecipe(reference.NAMESPACED_KEY, leg);
 		l.shape("ICI","C C","I I");
 		l.setIngredient('I', Material.IRON_INGOT);
 		l.setIngredient('C', Material.COAL);
@@ -162,25 +162,25 @@ public class rpg extends JavaPlugin{
 
 	private void createHorseArmor(){
 		ItemStack iron = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe i = new ShapedRecipe(iron);
+		ShapedRecipe i = new ShapedRecipe(reference.NAMESPACED_KEY, iron);
 		i.shape("I  "," II"," II");
 		i.setIngredient('I', Material.IRON_INGOT);
 		Bukkit.addRecipe(i);
 		
 		ItemStack gold = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe g = new ShapedRecipe(gold);
+		ShapedRecipe g = new ShapedRecipe(reference.NAMESPACED_KEY, gold);
 		g.shape("I  "," II"," II");
 		g.setIngredient('I', Material.GOLD_INGOT);
 		Bukkit.addRecipe(g);
 		
 		ItemStack dia = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe d = new ShapedRecipe(dia);
+		ShapedRecipe d = new ShapedRecipe(reference.NAMESPACED_KEY, dia);
 		d.shape("I  "," II"," II");
 		d.setIngredient('I', Material.DIAMOND);
 		Bukkit.addRecipe(g);
 		
 		ItemStack saddle = new ItemStack(Material.SADDLE);
-		ShapedRecipe s = new ShapedRecipe(saddle);
+		ShapedRecipe s = new ShapedRecipe(reference.NAMESPACED_KEY, saddle);
 		s.shape("lll"," I ","   ");
 		s.setIngredient('I', Material.IRON_INGOT);
 		s.setIngredient('l', Material.LEATHER);

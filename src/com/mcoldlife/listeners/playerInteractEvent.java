@@ -3,7 +3,7 @@ package com.mcoldlife.listeners;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BrewingStand;
-import org.bukkit.craftbukkit.v1_11_R1.block.CraftBrewingStand;
+import org.bukkit.craftbukkit.v1_12_R1.block.CraftBrewingStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +21,7 @@ import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.objects.Vector2D;
 import com.mcoldlife.rpg.ChunkUtils;
 
-import net.minecraft.server.v1_11_R1.TileEntityBrewingStand;
+import net.minecraft.server.v1_12_R1.TileEntityBrewingStand;
 
 public class playerInteractEvent implements Listener{
 

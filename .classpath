@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Thorwin/Desktop/RPG 1.11 Server/minecraft.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Thorwin/Desktop/RPG 1.11 Server/plugins/essentials.jar"/>
+	<classpathentry kind="lib" path="C:/Users/thorw/Documents/Minecraft Server/RPG Server 1.12/spigot-1.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/thorw/Documents/Minecraft Server/Plugins/ServerBasePlugin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,6 +2,7 @@ package com.mcoldlife.rpg;
 
 import java.nio.file.Path;
 
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.plugin.PluginManager;
 
@@ -74,10 +75,11 @@ public class reference {
 	
 	//Plugin
 	public static rpg PLUGIN_REFERENCE;
-	
+	public static NamespacedKey NAMESPACED_KEY;
 	public static void initReferences(PluginManager pm, rpg plugin){
 		
 		PLUGIN_REFERENCE = plugin;
+		NAMESPACED_KEY = new NamespacedKey(plugin, plugin.getDescription().getName());
 		JOB_CHANGE_PRICE = plugin.getConfig().getInt(PATH_JOBS_CHANGE_PRICE);
 		RPG_WORLD = plugin.getServer().getWorld(plugin.getConfig().getString(PATH_WORLD_NAME));
 		FOLDER_CLASSES = plugin.getDataFolder().toPath().resolve("Jobs");

@@ -186,4 +186,10 @@ public class OLChunk implements Chunk{
 		return false;
 	}
 
+
+	@Override
+	public boolean isSlimeChunk() {
+		return _bc.isSlimeChunk();
+	}
+
 }
