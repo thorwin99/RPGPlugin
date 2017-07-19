@@ -19,6 +19,7 @@ import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.objects.craftingMenu.CraftingMenu;
 import com.mcoldlife.objects.craftingMenu.CraftingMenuItemStack;
 import com.mcoldlife.objects.jobs.Foerster;
+import com.mcoldlife.rpg.reference;
 
 public class NetherCrafter implements OLItem, conditional<OLJob>{
 
@@ -67,7 +68,7 @@ public class NetherCrafter implements OLItem, conditional<OLJob>{
 
 	@Override
 	public void addRecipe() {
-		ShapedRecipe nc = new ShapedRecipe(new NetherCrafterStack());
+		ShapedRecipe nc = new ShapedRecipe(reference.NAMESPACED_KEY, new NetherCrafterStack());
 		nc.shape("OOO", "SGS", "SLS");
 		nc.setIngredient('L', Material.LAVA_BUCKET);
 		nc.setIngredient('S', Material.STONE);

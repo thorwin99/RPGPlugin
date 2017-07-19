@@ -20,7 +20,6 @@ public class RPPlayer{
 	private int _money;
 	private Location[] _possPlotCoords = new Location[2];
 	
-	//TODO: Add Job
 	private static final String _folder = reference.FOLDER_PLAYERS.toString();
 	
 	public RPPlayer(Player p){
