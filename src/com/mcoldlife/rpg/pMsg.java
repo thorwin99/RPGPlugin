@@ -66,6 +66,7 @@ public class pMsg {
 	public static String ERR_CMD_USAGE_JOB_LIST = "§c/job list";
 	public static String ERR_CMD_USAGE_JOB_CHANGE = "§c/job change <jobName>";
 	public static String ERR_CMD_USAGE_JOB_INFO = "§c/job info [jobName]";
+	
 	//Messages
 	public static String MSG_CITY_CREATED = "§aDie Stadt §6{city} §awurde erstellt";
 	public static String MSG_CITY_MONEY = "§aDie Stadt §6{city} §ahat §6{money} §aGeld.";

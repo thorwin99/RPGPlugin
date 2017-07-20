@@ -8,20 +8,15 @@ import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.Reference;
 import com.mcoldlife.rpg.Money;
-import com.mcoldlife.rpg.rpg;
+import com.mcoldlife.rpg.pMsg;
 
 public class money implements CommandExecutor{
-
-	rpg plugin;
-	public money(rpg r){
-		this.plugin = r;
-	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(sender instanceof ConsoleCommandSender) {
-			plugin.getLogger().info("Command has to be excecuted by player");
+			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
 			return false;
 		}
 		

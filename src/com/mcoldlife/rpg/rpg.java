@@ -67,7 +67,7 @@ public class rpg extends JavaPlugin{
 		this.getCommand("city").setExecutor(new city());
 		this.getCommand("job").setExecutor(new job());
 		this.getCommand("land").setExecutor(new land());
-		this.getCommand("money").setExecutor(new money(this));
+		this.getCommand("money").setExecutor(new money());
 		this.getCommand("pay").setExecutor(new pay());
 		this.getCommand("plot").setExecutor(new plot());
 	}
