@@ -1,8 +1,8 @@
 package com.mcoldlife.objects;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -15,9 +15,9 @@ public class RPGManager {
 	public static HashMap<String, OLCity> citys = new HashMap<>();
 	public static HashMap<String, RPPlayer> onlinePlayers = new HashMap<>();
 	public static HashMap<String, OLJob> jobs = new HashMap<>();
-	public static List<Material> restrictedBreakBlocks = new ArrayList<>();
-	public static List<Material> restrictedBuildBlocks = new ArrayList<>();
-	public static List<Material> restrictedCraftItems = Arrays.asList(Material.NETHER_BRICK, Material.NETHER_BRICK_STAIRS, Material.NETHER_BRICK_ITEM, Material.NETHER_FENCE);
+	public static List<Material> restrictedBreakBlocks = new LinkedList<>();
+	public static List<Material> restrictedBuildBlocks = new LinkedList<>();
+	public static List<Material> restrictedCraftItems = new LinkedList<>(Arrays.asList(Material.NETHER_BRICK, Material.NETHER_BRICK_STAIRS, Material.NETHER_BRICK_ITEM, Material.NETHER_FENCE));
 	
 	public RPGManager(){
 		
@@ -116,17 +116,17 @@ public class RPGManager {
 		if(!jobs.containsKey(name)){
 			jobs.put(name, job);
 			for(Material m : job.get_craftItems()){
-				if(!restrictedCraftItems.contains(m)){
+				if(!restrictedCraftItems.contains(m) && m != null){
 					restrictedCraftItems.add(m);
 				}
 			}
 			for(Material m : job.get_breakBlocks()){
-				if(!restrictedBreakBlocks.contains(m)){
+				if(!restrictedBreakBlocks.contains(m) && m != null){
 					restrictedBreakBlocks.add(m);
 				}
 			}
 			for(Material m : job.get_buildBlocks()){
-				if(!restrictedBuildBlocks.contains(m)){
+				if(!restrictedBuildBlocks.contains(m) && m != null){
 					restrictedBuildBlocks.add(m);
 				}
 			}

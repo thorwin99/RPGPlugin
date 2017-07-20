@@ -12,7 +12,7 @@ public class Foerster extends OLJob{
 	public static final String NAME = "Foerster";
 	public static final List<Material> BUILD_BLOCKS = Arrays.asList(Material.LEAVES, Material.LEAVES_2, Material.SAPLING);
 	public static final List<Material> BREAK_BLOCKS = Arrays.asList(Material.LOG, Material.LOG_2, Material.SAPLING);
-	public static final List<Material> CRAFT_ITEMS = Arrays.asList();
+	public static final List<Material> CRAFT_ITEMS = Arrays.asList(new Material[0]);
 	
 	public Foerster() {
 		super(NAME);

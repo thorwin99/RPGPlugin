@@ -1,6 +1,6 @@
 package com.mcoldlife.objects;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -11,9 +11,9 @@ import com.mcoldlife.rpg.reference;
 public class OLJob {
 
 	private String _name;
-	private List<Material> _breakBlocks = new ArrayList<>();
-	private List<Material> _buildBlocks = new ArrayList<>();
-	private List<Material> _craftItems = new ArrayList<>();
+	private List<Material> _breakBlocks = new LinkedList<>();
+	private List<Material> _buildBlocks = new LinkedList<>();
+	private List<Material> _craftItems = new LinkedList<>();
 	private boolean _isCreated;
 	private boolean _canBuildAnywhere;
 	private String _fileName;
@@ -43,6 +43,7 @@ public class OLJob {
 			this._breakBlocks = breakBlocks;
 			this._craftItems = craftItems;
 			this._canBuildAnywhere = canBuildAnywhere;
+			System.out.println(_buildBlocks.size());
 			CustomConfig.create(_fileName, _folder);
 			CustomConfig.set(_fileName, _folder, reference.PATH_JOB_NAME, _name);
 			CustomConfig.set(_fileName, _folder, reference.PATH_JOB_BUILD_ANYWHERE, canBuildAnywhere);
@@ -105,24 +106,28 @@ public class OLJob {
 		String[] buildBlockNames = (String[]) CustomConfig.getArray(_name, _folder, reference.PATH_JOB_BUILD_BLOCKS);
 		String[] destroyBlockNames = (String[]) CustomConfig.getArray(_name, _folder, reference.PATH_JOB_DESTROY_BLOCKS);
 
-		for(String block : buildBlockNames){
-			try{
-				Material m = Material.valueOf(block);
-				if(!_buildBlocks.contains(m)){
-					_buildBlocks.add(m);
+		if(buildBlockNames != null) {
+			for(String block : buildBlockNames){
+				try{
+					Material m = Material.valueOf(block);
+					if(!_buildBlocks.contains(m)){
+						_buildBlocks.add(m);
+					}
+				}catch(IllegalArgumentException e){
+					
 				}
-			}catch(IllegalArgumentException e){
-				
 			}
 		}
-		for(String block : destroyBlockNames){
-			try{
-				Material m = Material.valueOf(block);
-				if(!_breakBlocks.contains(m)){
-					_breakBlocks.add(m);
+		if(destroyBlockNames != null) {
+			for(String block : destroyBlockNames){
+				try{
+					Material m = Material.valueOf(block);
+					if(!_breakBlocks.contains(m)){
+						_breakBlocks.add(m);
+					}
+				}catch(IllegalArgumentException e){
+					
 				}
-			}catch(IllegalArgumentException e){
-				
 			}
 		}
 	}

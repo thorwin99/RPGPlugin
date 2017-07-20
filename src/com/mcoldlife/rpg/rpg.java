@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
@@ -41,6 +42,8 @@ public class rpg extends JavaPlugin{
 		PluginManager pm = this.getServer().getPluginManager();
 		config();
 		reference.initReferences(pm, this);
+		jobFolder();
+		landFolder();
 		//Register Commands
 		registerCommands();
 		//Now enable everything else
@@ -81,8 +84,6 @@ public class rpg extends JavaPlugin{
 		this.getConfig().addDefault(reference.PATH_WORLD_NAME, "world");
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
-		jobFolder();
-		landFolder();
 	}
 	public void jobFolder(){
 		
@@ -132,25 +133,25 @@ public class rpg extends JavaPlugin{
 	
 	private void createChainArmor(){
 		ItemStack head = new ItemStack(Material.CHAINMAIL_HELMET);
-		ShapedRecipe h = new ShapedRecipe(reference.NAMESPACED_KEY, head);
+		ShapedRecipe h = new ShapedRecipe(new NamespacedKey(this, "CHAIN_HELMET"), head);
 		h.shape("CIC","I I","   ");
 		h.setIngredient('I', Material.IRON_INGOT);
 		h.setIngredient('C', Material.COAL);
 		
 		ItemStack boot = new ItemStack(Material.CHAINMAIL_BOOTS);
-		ShapedRecipe b = new ShapedRecipe(reference.NAMESPACED_KEY, boot);
+		ShapedRecipe b = new ShapedRecipe(new NamespacedKey(this, "CHAIN_BOOTS"), boot);
 		b.shape("   ","I I","C C");
 		b.setIngredient('I', Material.IRON_INGOT);
 		b.setIngredient('C', Material.COAL);
 		
 		ItemStack chest = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
-		ShapedRecipe c = new ShapedRecipe(reference.NAMESPACED_KEY, chest);
+		ShapedRecipe c = new ShapedRecipe(new NamespacedKey(this, "CHAIN_CHESTPLATE"), chest);
 		c.shape("I I","CIC","ICI");
 		c.setIngredient('I', Material.IRON_INGOT);
 		c.setIngredient('C', Material.COAL);
 		
 		ItemStack leg = new ItemStack(Material.CHAINMAIL_LEGGINGS);
-		ShapedRecipe l = new ShapedRecipe(reference.NAMESPACED_KEY, leg);
+		ShapedRecipe l = new ShapedRecipe(new NamespacedKey(this, "CHAIN_LEG"), leg);
 		l.shape("ICI","C C","I I");
 		l.setIngredient('I', Material.IRON_INGOT);
 		l.setIngredient('C', Material.COAL);
@@ -162,28 +163,28 @@ public class rpg extends JavaPlugin{
 
 	private void createHorseArmor(){
 		ItemStack iron = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe i = new ShapedRecipe(reference.NAMESPACED_KEY, iron);
+		ShapedRecipe i = new ShapedRecipe(new NamespacedKey(this, "IRON_HORSE_ARMOR"), iron);
 		i.shape("I  "," II"," II");
 		i.setIngredient('I', Material.IRON_INGOT);
 		Bukkit.addRecipe(i);
 		
-		ItemStack gold = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe g = new ShapedRecipe(reference.NAMESPACED_KEY, gold);
+		ItemStack gold = new ItemStack(Material.GOLD_BARDING);
+		ShapedRecipe g = new ShapedRecipe(new NamespacedKey(this, "GOLD_HORSE_ARMOR"), gold);
 		g.shape("I  "," II"," II");
 		g.setIngredient('I', Material.GOLD_INGOT);
 		Bukkit.addRecipe(g);
 		
-		ItemStack dia = new ItemStack(Material.IRON_BARDING);
-		ShapedRecipe d = new ShapedRecipe(reference.NAMESPACED_KEY, dia);
+		ItemStack dia = new ItemStack(Material.DIAMOND_BARDING);
+		ShapedRecipe d = new ShapedRecipe(new NamespacedKey(this, "DIAMOND_HORSE_ARMOR"), dia);
 		d.shape("I  "," II"," II");
 		d.setIngredient('I', Material.DIAMOND);
-		Bukkit.addRecipe(g);
+		Bukkit.addRecipe(d);
 		
 		ItemStack saddle = new ItemStack(Material.SADDLE);
-		ShapedRecipe s = new ShapedRecipe(reference.NAMESPACED_KEY, saddle);
+		ShapedRecipe s = new ShapedRecipe(new NamespacedKey(this, "SADDLE"), saddle);
 		s.shape("lll"," I ","   ");
 		s.setIngredient('I', Material.IRON_INGOT);
 		s.setIngredient('l', Material.LEATHER);
-		Bukkit.addRecipe(g);
+		Bukkit.addRecipe(s);
 	}
 }

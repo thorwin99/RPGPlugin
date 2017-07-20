@@ -10,8 +10,8 @@ import com.mcoldlife.objects.OLJob;
 public class Fischer extends OLJob{
 
 	public static final String NAME = "Fischer";
-	public static final List<Material> BUILD_BLOCKS = Arrays.asList();
-	public static final List<Material> BREAK_BLOCKS = Arrays.asList();
+	public static final List<Material> BUILD_BLOCKS = Arrays.asList(new Material[0]);
+	public static final List<Material> BREAK_BLOCKS = Arrays.asList(new Material[0]);
 	public static final List<Material> CRAFT_ITEMS = Arrays.asList(Material.FISHING_ROD);
 	
 	public Fischer() {

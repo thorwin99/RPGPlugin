@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
@@ -68,7 +69,7 @@ public class NetherCrafter implements OLItem, conditional<OLJob>{
 
 	@Override
 	public void addRecipe() {
-		ShapedRecipe nc = new ShapedRecipe(reference.NAMESPACED_KEY, new NetherCrafterStack());
+		ShapedRecipe nc = new ShapedRecipe(new NamespacedKey(reference.PLUGIN_REFERENCE, "NETHER_CRAFTER"), new NetherCrafterStack());
 		nc.shape("OOO", "SGS", "SLS");
 		nc.setIngredient('L', Material.LAVA_BUCKET);
 		nc.setIngredient('S', Material.STONE);
