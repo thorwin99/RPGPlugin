@@ -20,7 +20,10 @@ public class money implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if(sender instanceof ConsoleCommandSender) plugin.getLogger().info("Command has to be excecuted by player");
+		if(sender instanceof ConsoleCommandSender) {
+			plugin.getLogger().info("Command has to be excecuted by player");
+			return false;
+		}
 		
 		Player p = (Player) sender;
 		
