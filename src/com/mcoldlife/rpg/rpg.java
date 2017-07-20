@@ -55,11 +55,12 @@ public class rpg extends JavaPlugin{
 
 	private void loadLands() {
 		String[] lands = (String[]) CustomConfig.getArray(reference.FILE_LANDS, reference.CONFIG_FOLDER.toString(), reference.PATH_LANDS);
-		for(String land : lands){
-			OLLand l = new OLLand(land);
-			RPGManager.addLand(land, l);
+		if(lands != null) {
+			for(String land : lands){
+				OLLand l = new OLLand(land);
+				RPGManager.addLand(land, l);
+			}
 		}
-		
 	}
 
 	private void registerCommands() {
