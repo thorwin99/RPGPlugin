@@ -47,12 +47,12 @@ public class plot implements CommandExecutor{
 					excecuteSubSet(args, p);
 					break;
 				default:
-					//TODO: print help
+					p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT);
 					break;
 				}
 			}
 		}else{
-			sender.sendMessage(prefix + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
+			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
 		}
 		
 		return false;

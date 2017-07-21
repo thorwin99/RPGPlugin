@@ -41,10 +41,12 @@ public class RPPlayer{
 				set_job(null);
 			}
 		}else{
+			System.out.println("PLAYER JOINED");
 			CustomConfig.create(_fileName, _folder);
-			CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_CITY, null);
-			CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_LAND, null);
-			CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_JOB, null);
+			setMoney(100);
+			set_job(null);
+			setCity(null);
+			setLand(null);
 		}
 	}
 

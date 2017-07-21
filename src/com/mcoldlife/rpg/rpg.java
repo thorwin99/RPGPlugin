@@ -18,6 +18,15 @@ import com.mcoldlife.commands.money;
 import com.mcoldlife.commands.pay;
 import com.mcoldlife.commands.plot;
 import com.mcoldlife.items.NetherCrafter;
+import com.mcoldlife.listeners.blockBreakEvent;
+import com.mcoldlife.listeners.blockPlaceEvent;
+import com.mcoldlife.listeners.blockPlaceEventCancel;
+import com.mcoldlife.listeners.chunkLoadListener;
+import com.mcoldlife.listeners.craftEvent;
+import com.mcoldlife.listeners.leaveEvent;
+import com.mcoldlife.listeners.playerInteractEntity;
+import com.mcoldlife.listeners.playerInteractEvent;
+import com.mcoldlife.listeners.playerMoveEventListener;
 import com.mcoldlife.objects.OLJob;
 import com.mcoldlife.objects.OLLand;
 import com.mcoldlife.objects.RPGManager;
@@ -46,11 +55,25 @@ public class rpg extends JavaPlugin{
 		landFolder();
 		//Register Commands
 		registerCommands();
+		registerEvents();
 		//Now enable everything else
 		loadJobs();
 		registerRecipes();
 		//Load Chunks, Citys, Lands, Plots
 		loadLands();
+	}
+
+	private void registerEvents() {
+		PluginManager pm = this.getServer().getPluginManager();
+		pm.registerEvents(new blockBreakEvent(), this);
+		pm.registerEvents(new blockPlaceEvent(), this);
+		pm.registerEvents(new blockPlaceEventCancel(), this);
+		pm.registerEvents(new chunkLoadListener(), this);
+		pm.registerEvents(new craftEvent(), this);
+		pm.registerEvents(new leaveEvent(), this);
+		pm.registerEvents(new playerInteractEntity(), this);
+		pm.registerEvents(new playerInteractEvent(), this);
+		pm.registerEvents(new playerMoveEventListener(), this);
 	}
 
 	private void loadLands() {

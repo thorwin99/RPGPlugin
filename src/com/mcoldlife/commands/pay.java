@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.Reference;
 import com.mcoldlife.rpg.Money;
+import com.mcoldlife.rpg.pMsg;
 
 public class pay implements CommandExecutor{
 
@@ -50,6 +51,8 @@ public class pay implements CommandExecutor{
 				
 			}
 			
+		}else{
+			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
 		}
 		
 		return false;

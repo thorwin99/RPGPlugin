@@ -48,7 +48,7 @@ public class city implements CommandExecutor{
 				showMenu(p);
 			}
 		}else{
-			sender.sendMessage(prefix + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
+			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
 		}
 		return false;
 	}
