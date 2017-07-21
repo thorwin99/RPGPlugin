@@ -24,7 +24,6 @@ public class money implements CommandExecutor{
 		
 		if(label.equalsIgnoreCase("money"))
 			p.sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + Money.getMoney(p) + " Gold.");
-		
 		return false;
 	}
 
