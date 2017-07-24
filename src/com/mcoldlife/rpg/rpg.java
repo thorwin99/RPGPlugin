@@ -50,12 +50,12 @@ public class rpg extends JavaPlugin{
 		log.info("Enabled");
 		PluginManager pm = this.getServer().getPluginManager();
 		config();
+		registerEvents();
 		reference.initReferences(pm, this);
 		jobFolder();
 		landFolder();
 		//Register Commands
 		registerCommands();
-		registerEvents();
 		//Now enable everything else
 		loadJobs();
 		registerRecipes();
