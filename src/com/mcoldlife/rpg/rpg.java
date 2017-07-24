@@ -23,6 +23,7 @@ import com.mcoldlife.listeners.blockPlaceEvent;
 import com.mcoldlife.listeners.blockPlaceEventCancel;
 import com.mcoldlife.listeners.chunkLoadListener;
 import com.mcoldlife.listeners.craftEvent;
+import com.mcoldlife.listeners.joinEvent;
 import com.mcoldlife.listeners.leaveEvent;
 import com.mcoldlife.listeners.playerInteractEntity;
 import com.mcoldlife.listeners.playerInteractEvent;
@@ -71,6 +72,7 @@ public class rpg extends JavaPlugin{
 		pm.registerEvents(new chunkLoadListener(), this);
 		pm.registerEvents(new craftEvent(), this);
 		pm.registerEvents(new leaveEvent(), this);
+		pm.registerEvents(new joinEvent(), this);
 		pm.registerEvents(new playerInteractEntity(), this);
 		pm.registerEvents(new playerInteractEvent(), this);
 		pm.registerEvents(new playerMoveEventListener(), this);
