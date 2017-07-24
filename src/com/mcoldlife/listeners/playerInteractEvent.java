@@ -77,6 +77,7 @@ public class playerInteractEvent implements Listener{
 	 * @param item Item of playerInteractEvent
 	 */
 	private void runItemEvents(ItemStack item, PlayerInteractEvent e) {
+		if(item == null)return;
 		switch(item.getItemMeta().getDisplayName()){
 		case ItemStackAttr.NAME_POS_STICK:
 			PositionStickStack.interact(e);
