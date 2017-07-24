@@ -12,7 +12,6 @@ public class joinEvent implements Listener{
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){
-		System.out.println("Player" + e.getPlayer().getName() + "joined");
 		Player p = e.getPlayer();
 		RPPlayer op = new RPPlayer(p);
 		if(!rpg.getRPGManager().getOnlinePlayers().containsKey(p.getUniqueId().toString())){
