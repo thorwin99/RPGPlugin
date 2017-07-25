@@ -52,7 +52,7 @@ public class land implements CommandExecutor{
 				}
 			}else{
 				//TODO: Add menu to player
-				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CREATE);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND);
 			}
 		}else{
 			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
