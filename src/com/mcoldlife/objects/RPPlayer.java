@@ -60,10 +60,10 @@ public class RPPlayer{
 	/**
 	 * @param land to set
 	 */
-	public void setLand(OLLand _land) {
-		this._land = _land;
-		
-		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_LAND, _land.toString());
+	public void setLand(OLLand land) {
+		this._land = land;
+		String name = land != null ? land.getName() : null;
+		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_LAND, name);
 	}
 
 	/**
@@ -76,10 +76,10 @@ public class RPPlayer{
 	/**
 	 * @param city to set
 	 */
-	public void setCity(OLCity _city) {
-		this._city = _city;
-		
-		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_CITY, _city.getName());
+	public void setCity(OLCity city) {
+		this._city = city;
+		String name = city != null ? city.getName() : null;
+		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_CITY, name);
 	}
 
 	/**
@@ -146,7 +146,8 @@ public class RPPlayer{
 	 */
 	public void set_job(OLJob job) {
 		this._job = job;
-		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_JOB, job);
+		String name = job != null ? job.getName() : null;
+		CustomConfig.set(_fileName, _folder, reference.PATH_PLAYER_JOB, name);
 	}
 
 	/**
