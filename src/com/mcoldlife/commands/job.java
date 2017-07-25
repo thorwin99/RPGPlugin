@@ -12,8 +12,6 @@ import com.mcoldlife.rpg.pMsg;
 import com.mcoldlife.rpg.reference;
 
 public class job implements CommandExecutor{
-
-	String prefix = Reference.CHAT_PREFIX;
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -29,15 +27,15 @@ public class job implements CommandExecutor{
 					excecuteSubChange(args, p);
 					break;
 				case "info":
-					p.sendMessage(prefix + pMsg.ERR_NOT_IMPLEMENTED);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_NOT_IMPLEMENTED);
 					break;
 				default:
-					p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_JOB);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_JOB);
 					break;
 				}
 			}else{
 				//TODO add menu with settings to Player screen
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_JOB);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_JOB);
 			}
 		}else{
 			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
@@ -51,16 +49,16 @@ public class job implements CommandExecutor{
 			String jobName = args[1];
 			if(RPGManager.getJob(jobName) != null){
 				if(player.changeJob(RPGManager.getJob(jobName))){
-					p.sendMessage(prefix + pMsg.MSG_JOB_CHANGED.replace("{job}", args[1]));
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_JOB_CHANGED.replace("{job}", args[1]));
 				}else{
-					p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT + pMsg.ERR_MONEY_NEEDED.replace("{money}", reference.JOB_CHANGE_PRICE + ""));
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_MONEY_NOT_ENOUGHT + pMsg.ERR_MONEY_NEEDED.replace("{money}", reference.JOB_CHANGE_PRICE + ""));
 				}
 			}else{
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_JOB_NOT_FOUND.replace("{job}", args[1]));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_JOB_NOT_FOUND.replace("{job}", args[1]));
 			}
 			
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_JOB_LIST);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_JOB_LIST);
 		}
 	}
 

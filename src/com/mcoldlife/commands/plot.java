@@ -16,8 +16,6 @@ import com.mcoldlife.rpg.pMsg;
 
 public class plot implements CommandExecutor{
 
-	String prefix = Reference.CHAT_PREFIX;
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!label.equalsIgnoreCase("plot"))return false;
@@ -47,7 +45,7 @@ public class plot implements CommandExecutor{
 					excecuteSubSet(args, p);
 					break;
 				default:
-					p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT);
 					break;
 				}
 			}
@@ -64,22 +62,22 @@ public class plot implements CommandExecutor{
 			try{
 			Integer.parseInt(args[1]);
 			}catch(NumberFormatException e){
-				p.sendMessage(prefix + pMsg.ERR_CMD_VALUE_NOT_INT);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_VALUE_NOT_INT);
 				return;
 			}
 			switch(args[1]){
 			case "1":
 				if(lands.addPlotCorner(player, 0, p.getLocation())){
-					p.sendMessage(prefix + pMsg.MSG_PLOT_POS_SET.replace("{pos}", "1"));
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_POS_SET.replace("{pos}", "1"));
 				}
 				break;
 			case "2":
 				if(lands.addPlotCorner(player, 1, p.getLocation())){
-					p.sendMessage(prefix + pMsg.MSG_PLOT_POS_SET.replace("{pos}", "2"));
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_POS_SET.replace("{pos}", "2"));
 				}
 				break;
 			default:
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_POS);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_POS);
 				break;
 			}
 		}else if(args.length == 1){
@@ -88,7 +86,7 @@ public class plot implements CommandExecutor{
 				p.getInventory().addItem(stick);
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_POS);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_POS);
 		}
 	}
 
@@ -96,10 +94,10 @@ public class plot implements CommandExecutor{
 		RPPlayer player = RPGManager.getPlayer(p);
 		if(args.length == 1){
 			if(lands.unClaimPlot(player)){
-				p.sendMessage(prefix + pMsg.MSG_PLOT_UNCLAIMED);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_UNCLAIMED);
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_UNCLAIM);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_UNCLAIM);
 		}
 	}
 
@@ -108,15 +106,15 @@ public class plot implements CommandExecutor{
 		if(args.length == 2){
 			String plotName = args[1];
 			if(lands.claimPlot(player, plotName)){
-				p.sendMessage(prefix + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plotName));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plotName));
 			}
 		}else if(args.length == 1){
 			if(lands.claimPlot(player, null)){
 				String plotname = player.get_city().getPlot(player).getName();
-				p.sendMessage(prefix + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plotname));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plotname));
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_CLAIM);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_CLAIM);
 		}
 	}
 
@@ -137,7 +135,7 @@ public class plot implements CommandExecutor{
 					}
 				}
 			}else{
-				p.sendMessage(prefix + pMsg.ERR_CITY_NOT_EXISTS);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CITY_NOT_EXISTS);
 			}
 		}else if(args.length == 1){
 			if(rp.get_city() != null){
@@ -153,10 +151,10 @@ public class plot implements CommandExecutor{
 					}
 				}
 			}else{
-				p.sendMessage(prefix +pMsg.ERR_PLAYER_NOT_IN_CITY);
+				p.sendMessage(Reference.CHAT_PREFIX +pMsg.ERR_PLAYER_NOT_IN_CITY);
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_LIST);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_LIST);
 		}
 	}
 
@@ -169,21 +167,21 @@ public class plot implements CommandExecutor{
 				try{
 					price = Integer.parseUnsignedInt(args[3]);
 				}catch(NumberFormatException e){
-					p.sendMessage(prefix + pMsg.ERR_CMD_VALUE_NOT_INT);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_VALUE_NOT_INT);
 					break;
 				}
 				if(price != -1){
 					if(lands.setPlotPrice(player, price, args[1])){
-						p.sendMessage(prefix + pMsg.MSG_PLOT_SET_PRICE.replace("{plot}", args[1]).replace("{price}", "" + price));
+						p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_SET_PRICE.replace("{plot}", args[1]).replace("{price}", "" + price));
 					}
 				}
 				break;
 			default:
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_SET);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_SET);
 				break;
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_SET);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_SET);
 		}
 	}
 
@@ -192,10 +190,10 @@ public class plot implements CommandExecutor{
 			String plotName = args[1];
 			RPPlayer cityOwner = RPGManager.getPlayer(p);
 			if(lands.deletePlot(cityOwner, plotName)){
-				p.sendMessage(prefix + pMsg.MSG_PLOT_DELETED.replace("{plot}", plotName));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_DELETED.replace("{plot}", plotName));
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_DELETE);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_DELETE);
 		}
 	}
 
@@ -206,15 +204,15 @@ public class plot implements CommandExecutor{
 			try{
 				price = Integer.parseInt(args[2]);
 			}catch(NumberFormatException e){
-				p.sendMessage(prefix + pMsg.ERR_CMD_VALUE_NOT_INT);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_VALUE_NOT_INT);
 				return;
 			}
 			RPPlayer cityOwner = RPGManager.getPlayer(p);
 			if(lands.createPlot(plotName, cityOwner, price)){
-				p.sendMessage(prefix + pMsg.MSG_PLOT_CREATED.replace("{plot}", plotName));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_PLOT_CREATED.replace("{plot}", plotName));
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_PLOT_CREATE);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT_CREATE);
 		}
 	}
 

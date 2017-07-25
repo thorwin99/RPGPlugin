@@ -17,8 +17,6 @@ import com.mcoldlife.rpg.reference;
 
 public class land implements CommandExecutor{
 
-	String prefix = Reference.CHAT_PREFIX;
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!label.equalsIgnoreCase("land"))return false;
@@ -41,20 +39,20 @@ public class land implements CommandExecutor{
 							printCitys(p);
 							break;
 						default:
-							p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_LAND_LIST);
+							p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_LIST);
 							break;
 						}
 					}else{
-						p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_LIST);
+						p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_LIST);
 					}
 					break;
 				default:
-					p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_LAND_CREATE);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CREATE);
 					break;
 				}
 			}else{
 				//TODO: Add menu to player
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_LAND_CREATE);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CREATE);
 			}
 		}else{
 			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
@@ -73,7 +71,7 @@ public class land implements CommandExecutor{
 			String landName = args[1];
 			lands.joinLand(player, landName);
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_LAND_JOIN);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_JOIN);
 		}
 	}
 
@@ -86,10 +84,10 @@ public class land implements CommandExecutor{
 			String landName = args[1];
 			RPPlayer founder = RPGManager.getPlayer(p);
 			if(lands.createLand(landName, founder)){
-				p.sendMessage(prefix + pMsg.MSG_LAND_CREATED.replace("{land}", landName));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_LAND_CREATED.replace("{land}", landName));
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_LAND_CREATE);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CREATE);
 		}
 	}
 	

@@ -1,10 +1,12 @@
 package com.mcoldlife.rpg;
 
+import java.util.Collection;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +33,7 @@ import com.mcoldlife.listeners.playerMoveEventListener;
 import com.mcoldlife.objects.OLJob;
 import com.mcoldlife.objects.OLLand;
 import com.mcoldlife.objects.RPGManager;
+import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.objects.jobs.Alchemist;
 import com.mcoldlife.objects.jobs.Dieb;
 import com.mcoldlife.objects.jobs.Farmer;
@@ -62,6 +65,7 @@ public class rpg extends JavaPlugin{
 		registerRecipes();
 		//Load Chunks, Citys, Lands, Plots
 		loadLands();
+		loadOnlinePlayers();
 	}
 
 	private void registerEvents() {
@@ -99,7 +103,8 @@ public class rpg extends JavaPlugin{
 
 	@Override
 	public void onDisable() {
-		
+		RPGManager.clear();
+		log.info("Disabled");
 	}
 	
 	public void config(){
@@ -149,6 +154,16 @@ public class rpg extends JavaPlugin{
 			RPGManager.addJob(name, new OLJob(name));
 		}
 		
+	}
+	
+	private void loadOnlinePlayers() {
+		Collection<? extends Player> onlinePlayers = Bukkit.getServer().getOnlinePlayers();
+		
+		for(Player p : onlinePlayers) {
+			
+			RPGManager.onlinePlayers.put(p.getUniqueId().toString(), new RPPlayer(p));
+			
+		}
 	}
 	
 	private void registerRecipes() {

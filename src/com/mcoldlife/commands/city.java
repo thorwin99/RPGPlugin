@@ -17,8 +17,6 @@ import com.mcoldlife.rpg.reference;
 
 public class city implements CommandExecutor{
 	
-	String prefix = Reference.CHAT_PREFIX;
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!label.equalsIgnoreCase("city"))return false;
@@ -39,16 +37,15 @@ public class city implements CommandExecutor{
 					excecuteSubMoney(args, p);
 					break;
 				default:
-					p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY);
 					break;
 				}
 			}else{
 				//TODO add menu with settings to Player screen
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY);
 				showMenu(p);
 			}
 		}else{
-			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);
 		}
 		return false;
 	}
@@ -64,29 +61,29 @@ public class city implements CommandExecutor{
 				RPPlayer player = RPGManager.getPlayer(p);
 				OLCity city = player.get_city();
 				if(city.getOwner() != p.getUniqueId()){
-					p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 					break;
 				}
 				int tax = -1;
 				try{
 					tax = Integer.parseUnsignedInt(args[2]);
 				}catch(NumberFormatException e){
-					p.sendMessage(prefix + pMsg.ERR_CMD_VALUE_NOT_INT);
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_VALUE_NOT_INT);
 					break;
 				}
 				if(tax != -1){
 					city.setTax(tax);
-					p.sendMessage(prefix + pMsg.MSG_CITY_SET_TAX.replace("{city}", city.getName()).replace("{tax}", "" + tax));
+					p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_CITY_SET_TAX.replace("{city}", city.getName()).replace("{tax}", "" + tax));
 				}
 				break;
 			default:
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_SET);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_SET);
 				break;
 			}
 			
 			
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_SET);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_SET);
 		}
 	}
 	
@@ -98,12 +95,12 @@ public class city implements CommandExecutor{
 		if(args.length == 1){
 			RPPlayer player = RPGManager.getPlayer(p);
 			if(player.get_city().getOwner() == p.getUniqueId()){
-				p.sendMessage(prefix + pMsg.MSG_CITY_MONEY.replace("{city}", player.get_city().getName()).replace("{money}", (new Integer(player.get_city().get_money()).toString())));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_CITY_MONEY.replace("{city}", player.get_city().getName()).replace("{money}", (new Integer(player.get_city().get_money()).toString())));
 			}else{
-				p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_MONEY);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_MONEY);
 		}
 	}
 	
@@ -116,10 +113,10 @@ public class city implements CommandExecutor{
 			String cityName = args[1];
 			RPPlayer founder = RPGManager.getPlayer(p);
 			if(lands.createCity(cityName, founder)){
-				p.sendMessage(prefix + pMsg.MSG_CITY_CREATED.replace("{city}", cityName));
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.MSG_CITY_CREATED.replace("{city}", cityName));
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_CREATE);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_CREATE);
 		}
 	}
 	
@@ -137,11 +134,10 @@ public class city implements CommandExecutor{
 				printPlots(p);
 				break;
 			default:
-				p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_LIST);
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_LIST);
 				break;
 			}
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CMD_USAGE_CITY_LIST);
 		}
 	}
 	

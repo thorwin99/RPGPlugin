@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class RPGManager {
 	
-	public static HashMap<String, OLChunk> chunks = new HashMap<>();;
+	public static HashMap<String, OLChunk> chunks = new HashMap<>();
 	public static HashMap<String, OLLand> lands = new HashMap<>();
 	public static HashMap<String, OLCity> citys = new HashMap<>();
 	public static HashMap<String, RPPlayer> onlinePlayers = new HashMap<>();
@@ -144,5 +144,15 @@ public class RPGManager {
 		if(!lands.containsKey(name)){
 			lands.put(name, land);
 		}
+	}
+	
+	public static void clear() {
+		chunks.clear();
+		lands.clear();
+		citys.clear();
+		jobs.clear();
+		restrictedBreakBlocks.clear();
+		restrictedBuildBlocks.clear();
+		restrictedCraftItems = new LinkedList<>(Arrays.asList(Material.NETHER_BRICK, Material.NETHER_BRICK_STAIRS, Material.NETHER_BRICK_ITEM, Material.NETHER_FENCE));	
 	}
 }
