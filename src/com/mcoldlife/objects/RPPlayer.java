@@ -129,12 +129,18 @@ public class RPPlayer{
 	/**
 	 * @param _job the OLJob to change to
 	 */
-	public boolean changeJob(OLJob _job) {
+	public boolean changeJob(OLJob job) {
 		int changePrice = reference.JOB_CHANGE_PRICE;
 		if(changePrice >= 0){
-			if(hasEnoughMoney(changePrice)){
+			if(this._job != null) {
+				if(hasEnoughMoney(changePrice)){
+					pay(changePrice);
+					set_job(job);
+					return true;
+				}
+			}else {
 				pay(changePrice);
-				set_job(_job);
+				set_job(job);
 				return true;
 			}
 		}
