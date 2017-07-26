@@ -14,18 +14,14 @@ public class chunkLoadListener implements Listener{
 	public void onChunkLoad(ChunkLoadEvent e){
 		
 		OLChunk loadedChunk = new OLChunk(e.getChunk());
-		
 		if(!rpg.getRPGManager().getChunks().containsKey(loadedChunk.getID())) 
 			rpg.getRPGManager().getChunks().put(loadedChunk.getID(), loadedChunk);
 	}
 	
 	@EventHandler
-	public void onChunkLoad(ChunkUnloadEvent e){
-		
+	public void onChunkUnLoad(ChunkUnloadEvent e){
 		OLChunk unloadedChunk = new OLChunk(e.getChunk());
-		
 		if(!rpg.getRPGManager().getChunks().containsKey(unloadedChunk.getID())) 
 			rpg.getRPGManager().getChunks().remove(unloadedChunk.getID());
 	}
-	
 }

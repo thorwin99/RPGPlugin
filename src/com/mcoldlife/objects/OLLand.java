@@ -101,9 +101,11 @@ public class OLLand {
 		_citys.clear();
 		
 		//Loads chunks
-		String[] chunkIDs = (String[]) CustomConfig.getArray(_fileName, _folder, reference.PATH_LAND_CHUNKS);
+		Object[] chunkIDs = CustomConfig.getArray(_fileName, _folder, reference.PATH_LAND_CHUNKS);
 		
-		for(String id : chunkIDs){
+		for(Object oId : chunkIDs){
+			
+			String id = oId.toString();
 			
 			if(rpg.getRPGManager().getChunks().containsKey(id)){
 				addChunk(rpg.getRPGManager().getChunks().get(id));
@@ -116,9 +118,11 @@ public class OLLand {
 			
 		}
 		//Loads and set City's
-		String[] cityNames = (String[]) CustomConfig.getArray(_fileName, _folder, reference.PATH_LAND_CITYS);
+		Object[] cityNames = CustomConfig.getArray(_fileName, _folder, reference.PATH_LAND_CITYS);
 		
-		for(String name : cityNames){
+		for(Object oName : cityNames){
+			
+			String name = oName.toString();
 			
 			if(!_citys.containsKey(name)){
 				
