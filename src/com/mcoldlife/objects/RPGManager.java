@@ -18,36 +18,31 @@ public class RPGManager {
 	public static List<Material> restrictedBreakBlocks = new LinkedList<>();
 	public static List<Material> restrictedBuildBlocks = new LinkedList<>();
 	public static List<Material> restrictedCraftItems = new LinkedList<>(Arrays.asList(Material.NETHER_BRICK, Material.NETHER_BRICK_STAIRS, Material.NETHER_BRICK_ITEM, Material.NETHER_FENCE));
-	
-	public RPGManager(){
-		
-	}
-
 	/**
 	 * @return the chunks
 	 */
-	public HashMap<String, OLChunk> getChunks() {
+	public static HashMap<String, OLChunk> getChunks() {
 		return chunks;
 	}
 
 	/**
 	 * @return the lands
 	 */
-	public HashMap<String, OLLand> getLands() {
+	public static HashMap<String, OLLand> getLands() {
 		return lands;
 	}
 
 	/**
 	 * @return the city's
 	 */
-	public HashMap<String, OLCity> getCitys() {
+	public static HashMap<String, OLCity> getCitys() {
 		return citys;
 	}
 
 	/**
 	 * @return the onlinePlayers
 	 */
-	public HashMap<String, RPPlayer> getOnlinePlayers() {
+	public static HashMap<String, RPPlayer> getOnlinePlayers() {
 		return onlinePlayers;
 	}
 	
@@ -80,7 +75,7 @@ public class RPGManager {
 	public static OLChunk getChunk(String id){
 		
 		if(chunks.containsKey(id))
-		return chunks.get(id);
+			return chunks.get(id);
 		return null;
 	}
 	
@@ -135,7 +130,7 @@ public class RPGManager {
 		
 	}
 	
-	/**Adds Land	if possible
+	/**Adds Land if possible
 	 * @param name Name of Land
 	 * @param land OLLand
 	 */
@@ -146,8 +141,18 @@ public class RPGManager {
 		}
 	}
 	
+	/**Adds Chunk if possible
+	 * @param id ID of Chunk
+	 * @param chun OLChunk
+	 */
+	public static void addChunk(String id, OLChunk chunk){
+		if(!chunks.containsKey(id)){
+			chunks.put(id, chunk);
+			
+		}
+	}
+	
 	public static void clear() {
-		chunks.clear();
 		lands.clear();
 		citys.clear();
 		jobs.clear();

@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.mcoldlife.rpg.rpg;
+import com.mcoldlife.objects.RPGManager;
 
 public class leaveEvent implements Listener{
 
@@ -13,8 +13,8 @@ public class leaveEvent implements Listener{
 	public void onQuit(PlayerQuitEvent e){
 		Player p = e.getPlayer();
 		
-		if(rpg.getRPGManager().getOnlinePlayers().containsKey(p.getUniqueId().toString())){
-			rpg.getRPGManager().getOnlinePlayers().remove(p.getUniqueId().toString());
+		if(RPGManager.getOnlinePlayers().containsKey(p.getUniqueId().toString())){
+			RPGManager.getOnlinePlayers().remove(p.getUniqueId().toString());
 		}
 	}
 	

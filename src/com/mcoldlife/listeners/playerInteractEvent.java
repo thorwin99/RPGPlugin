@@ -30,6 +30,7 @@ public class playerInteractEvent implements Listener{
 		Player p = e.getPlayer();
 		RPPlayer player = RPGManager.getPlayer(p);
 		if(e.getClickedBlock() == null)return;
+
 		OLChunk chunk = RPGManager.getChunk(ChunkUtils.generateId(e.getClickedBlock().getLocation().getChunk()));
 		Block clickedBlock = e.getClickedBlock();
 		ItemStack item = e.getItem();

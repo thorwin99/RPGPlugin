@@ -43,9 +43,6 @@ import com.mcoldlife.objects.jobs.Miner;
 import com.mcoldlife.objects.jobs.Schmied;
 import com.mcoldlife.objects.jobs.Weber;
 public class rpg extends JavaPlugin{
-
-	private static RPGManager rpgManager = new RPGManager();
-	
 	Logger log;
 	
 	@Override
@@ -129,13 +126,6 @@ public class rpg extends JavaPlugin{
 		CustomConfig.createFolder(reference.FOLDER_LANDS.toString());
 		CustomConfig.createFolder(reference.FOLDER_CITYS.toString());
 		CustomConfig.createFolder(reference.FOLDER_CHUNKS.toString());
-	}
-
-	/**
-	 * @return the rpgManager
-	 */
-	public static RPGManager getRPGManager() {
-		return rpgManager;
 	}
 	
 	private void loadJobs(){

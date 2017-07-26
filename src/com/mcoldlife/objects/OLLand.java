@@ -8,7 +8,6 @@ import org.bukkit.Chunk;
 import com.essentials.mcoldlife.main.CustomConfig;
 import com.mcoldlife.rpg.ChunkUtils;
 import com.mcoldlife.rpg.reference;
-import com.mcoldlife.rpg.rpg;
 
 public class OLLand {
 
@@ -107,8 +106,8 @@ public class OLLand {
 			
 			String id = oId.toString();
 			
-			if(rpg.getRPGManager().getChunks().containsKey(id)){
-				addChunk(rpg.getRPGManager().getChunks().get(id));
+			if(RPGManager.getChunks().containsKey(id)){
+				addChunk(RPGManager.getChunks().get(id));
 			}else{
 				Chunk c = ChunkUtils.getChunk(id, reference.RPG_WORLD);
 				OLChunk ch = new OLChunk(c);
