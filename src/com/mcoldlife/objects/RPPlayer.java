@@ -41,7 +41,6 @@ public class RPPlayer{
 				set_job(null);
 			}
 		}else{
-			System.out.println("PLAYER JOINED");
 			CustomConfig.create(_fileName, _folder);
 			setMoney(100);
 			set_job(null);

@@ -43,7 +43,6 @@ public class OLJob {
 			this._breakBlocks = breakBlocks;
 			this._craftItems = craftItems;
 			this._canBuildAnywhere = canBuildAnywhere;
-			System.out.println(_buildBlocks.size());
 			CustomConfig.create(_fileName, _folder);
 			CustomConfig.set(_fileName, _folder, reference.PATH_JOB_NAME, _name);
 			CustomConfig.set(_fileName, _folder, reference.PATH_JOB_BUILD_ANYWHERE, canBuildAnywhere);
