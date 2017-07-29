@@ -2,8 +2,9 @@ package com.mcoldlife.listeners;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 import com.mcoldlife.objects.OLChunk;
 import com.mcoldlife.objects.OLCity;
@@ -16,9 +17,11 @@ import com.mcoldlife.rpg.lands;
 
 public class blockPlaceEvent implements Listener{
 
-	public void onBlockBreak(BlockBreakEvent e){
+	@EventHandler
+	public void onBlockBreak(BlockPlaceEvent e){
+		System.out.println("PLACE");
 		Player p = e.getPlayer();
-		RPPlayer player = RPGManager.getPlayer(p);
+		RPPlayer player = new RPPlayer(p);
 		OLChunk chunk = RPGManager.getChunk(ChunkUtils.generateId(e.getBlock().getLocation().getChunk()));
 		Block clickedBlock = e.getBlock();
 		if(player.getLand() == null){
@@ -56,7 +59,7 @@ public class blockPlaceEvent implements Listener{
 		}
 	}
 	
-	private void couldBuild(Block block, RPPlayer player, BlockBreakEvent e){
+	private void couldBuild(Block block, RPPlayer player, BlockPlaceEvent e){
 		
 		if(RPGManager.restrictedBuildBlocks.contains(block.getType())){
 			if(!player.get_job().containsBuildMaterial(block.getType())){
