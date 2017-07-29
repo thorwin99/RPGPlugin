@@ -37,7 +37,7 @@ public class lands {
 				baseChunk.setLand(landName);
 				
 				OLLand land = new OLLand(landName);
-				RPGManager.lands.put(landName, land);
+				RPGManager.addLand(landName, land);
 				founder.setLand(RPGManager.lands.get(landName));
 				return land.createLand(founder, baseChunk);
 				

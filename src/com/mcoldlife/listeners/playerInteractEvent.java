@@ -39,6 +39,7 @@ public class playerInteractEvent implements Listener{
 			e.setCancelled(true);
 			return;
 		}
+		if(chunk == null)System.out.println("Chunk not loaded...");
 		if(chunk.getLand() == player.getLand().getName()){
 			if(chunk.getCity() != null){
 				if(player.get_city().getName() == chunk.getCity()){

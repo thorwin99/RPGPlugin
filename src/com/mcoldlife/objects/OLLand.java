@@ -15,8 +15,8 @@ public class OLLand {
 	private boolean _isCreated;
 	private String _fileName;
 	private UUID _owner;
-	private HashMap<String, OLCity> _citys = new HashMap<>();;
-	private HashMap<String, OLChunk> _chunks = new HashMap<>();;
+	private HashMap<String, OLCity> _citys = new HashMap<>();
+	private HashMap<String, OLChunk> _chunks = new HashMap<>();
 	private static final String _folder = reference.FOLDER_LANDS.toString();
 	
 	/**Loads a Land from configuration if possible or creates a new empty one

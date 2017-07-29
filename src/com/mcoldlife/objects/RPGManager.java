@@ -5,8 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+
+import com.essentials.mcoldlife.main.CustomConfig;
+import com.mcoldlife.rpg.ChunkUtils;
+import com.mcoldlife.rpg.reference;
 
 public class RPGManager {
 	
@@ -74,8 +79,18 @@ public class RPGManager {
 	 */
 	public static OLChunk getChunk(String id){
 		
-		if(chunks.containsKey(id))
+		if(chunks.containsKey(id)) {
 			return chunks.get(id);
+		}else {
+			if(CustomConfig.exists(id + ".yml", reference.FOLDER_CHUNKS.toString())) {
+				int[] coords = ChunkUtils.decodeId(id);
+				Chunk notLoadedChunk = reference.RPG_WORLD.getChunkAt(coords[0], coords[1]);
+				if(!notLoadedChunk.isLoaded())notLoadedChunk.load(true);
+				addChunk(id, new OLChunk(notLoadedChunk));
+				return getChunk(id);
+			}
+		}
+
 		return null;
 	}
 	
