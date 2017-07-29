@@ -3,6 +3,7 @@ package com.mcoldlife.listeners;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
@@ -17,7 +18,7 @@ import com.mcoldlife.rpg.lands;
 
 public class blockBreakEvent implements Listener{
 
-	@EventHandler
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent e){
 		System.out.println("BREAK");
 		Player p = e.getPlayer();
