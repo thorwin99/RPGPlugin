@@ -13,11 +13,7 @@ public class chunkLoadListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onChunkLoad(ChunkLoadEvent e){
-		System.out.println(e.getChunk().getX() + " : " + e.getChunk().getZ());
 		OLChunk loadedChunk = new OLChunk(e.getChunk());
-		if(loadedChunk.getLand() != null) {
-			System.out.println(loadedChunk.getLand() + ":" + loadedChunk.getID());
-		}
 		RPGManager.addChunk(loadedChunk.getID(), loadedChunk);
 	}
 	
