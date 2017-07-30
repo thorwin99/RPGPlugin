@@ -60,7 +60,7 @@ public class rpg extends JavaPlugin{
 		//Now enable everything else
 		loadJobs();
 		registerRecipes();
-		//Load Chunks, Citys, Lands, Plots
+		//Load Chunks, City's, Lands, Plots
 		loadLands();
 		loadOnlinePlayers();
 	}
