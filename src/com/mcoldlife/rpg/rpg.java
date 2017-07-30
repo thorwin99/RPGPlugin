@@ -1,6 +1,9 @@
 package com.mcoldlife.rpg;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -21,17 +24,17 @@ import com.mcoldlife.commands.pay;
 import com.mcoldlife.commands.plot;
 import com.mcoldlife.items.NetherCrafter;
 import com.mcoldlife.listeners.blockBreakEventListener;
-import com.mcoldlife.listeners.blockPlaceEventListener;
 import com.mcoldlife.listeners.blockPlaceEventCancelListener;
+import com.mcoldlife.listeners.blockPlaceEventListener;
 import com.mcoldlife.listeners.chunkLoadEventListener;
-import com.mcoldlife.listeners.playerCraftEventListener;
-import com.mcoldlife.listeners.playerJoinEventListener;
 import com.mcoldlife.listeners.landEventListeners;
-import com.mcoldlife.listeners.playerLeaveEventListener;
-import com.mcoldlife.listeners.playerStealEventListener;
+import com.mcoldlife.listeners.playerCraftEventListener;
 import com.mcoldlife.listeners.playerInteractEntityEventListener;
 import com.mcoldlife.listeners.playerInteractEvent;
+import com.mcoldlife.listeners.playerJoinEventListener;
+import com.mcoldlife.listeners.playerLeaveEventListener;
 import com.mcoldlife.listeners.playerMoveEventListener;
+import com.mcoldlife.listeners.playerStealEventListener;
 import com.mcoldlife.objects.OLJob;
 import com.mcoldlife.objects.OLLand;
 import com.mcoldlife.objects.RPGManager;
@@ -65,6 +68,8 @@ public class rpg extends JavaPlugin{
 		//Load Chunks, City's, Lands, Plots
 		loadLands();
 		loadOnlinePlayers();
+		
+		RPGManager.reloadFromConfig();
 	}
 
 	private void registerEvents() {
@@ -109,11 +114,16 @@ public class rpg extends JavaPlugin{
 	}
 	
 	public void config(){
+		List<String> restrictedCraftItems = new LinkedList<>(Arrays.asList("NETHER_BRICK", "NETHER_BRICK_STAIRS", "NETHER_BRICK_ITEM", "NETHER_FENCE"));
+		List<String> restrictedInteractItems = new LinkedList<>(Arrays.asList("ACACIA_DOOR", "IRON_TRAPDOOR", "BIRCH_DOOR", "DARK_OAK_DOOR", "IRON_DOOR", "JUNGLE_DOOR", "SPRUCE_DOOR", "TRAP_DOOR", "WOOD_DOOR", "WOODEN_DOOR", "FENCE_GATE", "STONE_BUTTON", "WOOD_BUTTON", "LEVER", "CHEST"));
+		
 		this.getConfig().addDefault(reference.PATH_LAND_PRICE, 10000);
 		this.getConfig().addDefault(reference.PATH_CITY_PRICE, 2000);
 		this.getConfig().addDefault(reference.PATH_CITY_EXPAND_PRICE, 500);
 		this.getConfig().addDefault(reference.PATH_JOBS_CHANGE_PRICE, 3000);
 		this.getConfig().addDefault(reference.PATH_WORLD_NAME, "world");
+		this.getConfig().addDefault(reference.PATH_RESTRICTED_CRAFTABLE, restrictedCraftItems);
+		this.getConfig().addDefault(reference.PATH_RESTRICTED_INTERACT, restrictedInteractItems);	
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
 	}

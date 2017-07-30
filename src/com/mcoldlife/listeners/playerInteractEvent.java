@@ -36,11 +36,12 @@ public class playerInteractEvent implements Listener{
 		Block clickedBlock = e.getClickedBlock();
 		ItemStack item = e.getItem();
 		runItemEvents(item, e);//All Item interact events which aren't bound to restrictions go here
+
+		if(e.getAction() != Action.RIGHT_CLICK_BLOCK)return;
 		if(player.getLand() == null){//TODO: is not important. only for name...
 			e.setCancelled(true);
 			return;
 		}
-		if(e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK)return;
 		if(chunk.getLand() == player.getLand().getName()){
 			if(chunk.getCity() != null){
 				if(player.get_city().getName() == chunk.getCity()){

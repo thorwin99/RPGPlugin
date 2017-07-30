@@ -18,7 +18,7 @@ import com.mcoldlife.rpg.lands;
 
 public class blockBreakEventListener implements Listener{
 
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled=true)
 	public void onBlockBreak(BlockBreakEvent e){
 		System.out.println("BREAK");
 		Player p = e.getPlayer();
@@ -63,7 +63,7 @@ public class blockBreakEventListener implements Listener{
 	}
 	
 	private void couldBreak(Block block, RPPlayer player, BlockBreakEvent e){
-		System.out.println("anBreak?");
+		System.out.println("canBreak?");
 		if(RPGManager.restrictedBreakBlocks.contains(block.getType())){
 			if(!player.get_job().containsBreakMaterial(block.getType())){
 				e.setCancelled(true);

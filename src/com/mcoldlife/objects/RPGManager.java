@@ -22,7 +22,34 @@ public class RPGManager {
 	public static HashMap<String, OLJob> jobs = new HashMap<>();
 	public static List<Material> restrictedBreakBlocks = new LinkedList<>();
 	public static List<Material> restrictedBuildBlocks = new LinkedList<>();
-	public static List<Material> restrictedCraftItems = new LinkedList<>(Arrays.asList(Material.NETHER_BRICK, Material.NETHER_BRICK_STAIRS, Material.NETHER_BRICK_ITEM, Material.NETHER_FENCE));
+	public static List<Material> restrictedCraftItems = new LinkedList<>();
+	public static List<Material> restrictedInteractItems = new LinkedList<>();
+	
+	/**Loads Lists from configuration File of the Plugin
+	 * 
+	 */
+	public static void reloadFromConfig() {
+		List<String> restrictedCraftable = reference.PLUGIN_REFERENCE.getConfig().getStringList(reference.PATH_RESTRICTED_CRAFTABLE);
+		List<String> restrictedInteract = reference.PLUGIN_REFERENCE.getConfig().getStringList(reference.PATH_RESTRICTED_INTERACT);
+		
+		for(String m : restrictedCraftable) {
+			try {
+				restrictedCraftItems.add(Material.valueOf(m));
+			}catch(IllegalArgumentException e) {
+				
+			}
+		}
+		
+		for(String m : restrictedInteract) {
+			try {
+				restrictedInteractItems.add(Material.valueOf(m));
+			}catch(IllegalArgumentException e) {
+				
+			}
+		}
+		
+	}
+	
 	/**
 	 * @return the chunks
 	 */

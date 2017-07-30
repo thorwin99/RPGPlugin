@@ -17,6 +17,9 @@ public class reference {
 	public static String PATH_WORLD_NAME = PATH_WORLD_SETTINGS + ".Name";
 	public static String PATH_JOBS_CONFIG = "Property.Jobs";
 	public static String PATH_JOBS_CHANGE_PRICE = PATH_JOBS_CONFIG + ".changePrice";
+	public static String PATH_RESTRICTED_BLOCKS = "RestrictedBlocks";
+	public static String PATH_RESTRICTED_INTERACT = PATH_RESTRICTED_BLOCKS + ".Interactable";
+	public static String PATH_RESTRICTED_CRAFTABLE = PATH_RESTRICTED_BLOCKS + ".Craftable";
 	
 	//Jobs config
 	public static String PATH_JOB_NAME = "Name";
