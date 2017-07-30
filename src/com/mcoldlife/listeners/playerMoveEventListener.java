@@ -37,8 +37,7 @@ public class playerMoveEventListener implements Listener{
 				OLChunk tCh = new OLChunk(t.getChunk());
 				if(tCh.getCity() != null){
 					OLChunk fCh = new OLChunk(f.getChunk());
-					if(fCh.getCity() != tCh.getCity()){
-						
+					if(tCh.getCity().equals(fCh.getCity())){
 						Bukkit.getServer().getPluginManager().callEvent(new EnterCityEvent(RPGManager.getPlayer(p), RPGManager.getCity(tCh.getCity())));
 					}
 				}
@@ -61,7 +60,7 @@ public class playerMoveEventListener implements Listener{
 				OLChunk tCh = new OLChunk(t.getChunk());
 				if(tCh.getLand() != null){
 					OLChunk fCh = new OLChunk(f.getChunk());
-					if(fCh.getLand() != tCh.getLand()){
+					if(!tCh.getLand().equals(fCh.getLand())){
 						
 						Bukkit.getServer().getPluginManager().callEvent(new EnterLandEvent(RPGManager.getPlayer(p), RPGManager.getLand(tCh.getLand())));
 						
