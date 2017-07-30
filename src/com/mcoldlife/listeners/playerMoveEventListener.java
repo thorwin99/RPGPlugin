@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.mcoldlife.events.EnterCityEvent;
+import com.mcoldlife.events.EnterLandEvent;
 import com.mcoldlife.objects.OLChunk;
 import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.rpg.ChunkUtils;
@@ -38,7 +39,7 @@ public class playerMoveEventListener implements Listener{
 					OLChunk fCh = new OLChunk(f.getChunk());
 					if(fCh.getCity() != tCh.getCity()){
 						
-						Bukkit.getServer().getPluginManager().callEvent(new EnterCityEvent("EnterCityEvent", RPGManager.getPlayer(p), RPGManager.getCity(tCh.getCity())));
+						Bukkit.getServer().getPluginManager().callEvent(new EnterCityEvent(RPGManager.getPlayer(p), RPGManager.getCity(tCh.getCity())));
 					}
 				}
 				
@@ -62,6 +63,7 @@ public class playerMoveEventListener implements Listener{
 					OLChunk fCh = new OLChunk(f.getChunk());
 					if(fCh.getLand() != tCh.getLand()){
 						
+						Bukkit.getServer().getPluginManager().callEvent(new EnterLandEvent(RPGManager.getPlayer(p), RPGManager.getLand(tCh.getLand())));
 						
 					}
 				}

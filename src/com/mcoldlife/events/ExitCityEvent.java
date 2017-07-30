@@ -9,11 +9,12 @@ import com.mcoldlife.objects.RPPlayer;
 
 public class ExitCityEvent extends Event implements Cancellable{
 
+	private static final HandlerList handlers = new HandlerList();
 	private RPPlayer player;
 	private OLCity city;
 	private boolean cancelled;
 	
-	public ExitCityEvent(String event, RPPlayer player, OLCity city) {
+	public ExitCityEvent(RPPlayer player, OLCity city) {
 		super();
 		this.player = player;
 		this.city = city;
@@ -32,7 +33,7 @@ public class ExitCityEvent extends Event implements Cancellable{
 
 	@Override
 	public HandlerList getHandlers() {
-		return null;
+		return handlers;
 	}
 
 	/**
@@ -47,6 +48,10 @@ public class ExitCityEvent extends Event implements Cancellable{
 	 */
 	public OLCity getCity() {
 		return city;
+	}
+	
+	public static HandlerList getHandlerList() {
+	    return handlers;
 	}
 
 }

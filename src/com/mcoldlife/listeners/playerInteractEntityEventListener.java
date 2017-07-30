@@ -11,7 +11,7 @@ import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.objects.jobs.Dieb;
 
-public class playerInteractEntity implements Listener{
+public class playerInteractEntityEventListener implements Listener{
 
 	public void onInteractWithEntity(PlayerInteractEntityEvent e){
 		Player exec = e.getPlayer();

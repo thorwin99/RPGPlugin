@@ -12,7 +12,7 @@ import com.mcoldlife.ItemStacks.ItemStackAttr;
 import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.objects.RPPlayer;
 
-public class craftEvent implements Listener{
+public class playerCraftEventListener implements Listener{
 
 	@EventHandler
 	public void onCraft(PrepareItemCraftEvent e){

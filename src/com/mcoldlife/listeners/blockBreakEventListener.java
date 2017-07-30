@@ -16,7 +16,7 @@ import com.mcoldlife.objects.Vector2D;
 import com.mcoldlife.rpg.ChunkUtils;
 import com.mcoldlife.rpg.lands;
 
-public class blockBreakEvent implements Listener{
+public class blockBreakEventListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent e){

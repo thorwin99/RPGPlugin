@@ -16,7 +16,7 @@ import com.mcoldlife.events.PlayerStealEvent;
 import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.rpg.pMsg;
 
-public class onPlayerSteal implements Listener{
+public class playerStealEventListener implements Listener{
 	
 	@EventHandler
 	public void stealPlayer(PlayerStealEvent e){

@@ -9,7 +9,7 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 import com.mcoldlife.objects.OLChunk;
 import com.mcoldlife.objects.RPGManager;
 
-public class chunkLoadListener implements Listener{
+public class chunkLoadEventListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onChunkLoad(ChunkLoadEvent e){

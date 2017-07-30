@@ -20,14 +20,16 @@ import com.mcoldlife.commands.money;
 import com.mcoldlife.commands.pay;
 import com.mcoldlife.commands.plot;
 import com.mcoldlife.items.NetherCrafter;
-import com.mcoldlife.listeners.blockBreakEvent;
-import com.mcoldlife.listeners.blockPlaceEvent;
-import com.mcoldlife.listeners.blockPlaceEventCancel;
-import com.mcoldlife.listeners.chunkLoadListener;
-import com.mcoldlife.listeners.craftEvent;
-import com.mcoldlife.listeners.joinEvent;
-import com.mcoldlife.listeners.leaveEvent;
-import com.mcoldlife.listeners.playerInteractEntity;
+import com.mcoldlife.listeners.blockBreakEventListener;
+import com.mcoldlife.listeners.blockPlaceEventListener;
+import com.mcoldlife.listeners.blockPlaceEventCancelListener;
+import com.mcoldlife.listeners.chunkLoadEventListener;
+import com.mcoldlife.listeners.playerCraftEventListener;
+import com.mcoldlife.listeners.playerJoinEventListener;
+import com.mcoldlife.listeners.landEventListeners;
+import com.mcoldlife.listeners.playerLeaveEventListener;
+import com.mcoldlife.listeners.playerStealEventListener;
+import com.mcoldlife.listeners.playerInteractEntityEventListener;
 import com.mcoldlife.listeners.playerInteractEvent;
 import com.mcoldlife.listeners.playerMoveEventListener;
 import com.mcoldlife.objects.OLJob;
@@ -67,16 +69,18 @@ public class rpg extends JavaPlugin{
 
 	private void registerEvents() {
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvents(new blockBreakEvent(), this);
-		pm.registerEvents(new blockPlaceEvent(), this);
-		pm.registerEvents(new blockPlaceEventCancel(), this);
-		pm.registerEvents(new chunkLoadListener(), this);
-		pm.registerEvents(new craftEvent(), this);
-		pm.registerEvents(new leaveEvent(), this);
-		pm.registerEvents(new joinEvent(), this);
-		pm.registerEvents(new playerInteractEntity(), this);
+		pm.registerEvents(new blockBreakEventListener(), this);
+		pm.registerEvents(new blockPlaceEventListener(), this);
+		pm.registerEvents(new blockPlaceEventCancelListener(), this);
+		pm.registerEvents(new chunkLoadEventListener(), this);
+		pm.registerEvents(new playerCraftEventListener(), this);
+		pm.registerEvents(new playerLeaveEventListener(), this);
+		pm.registerEvents(new playerJoinEventListener(), this);
+		pm.registerEvents(new playerInteractEntityEventListener(), this);
 		pm.registerEvents(new playerInteractEvent(), this);
 		pm.registerEvents(new playerMoveEventListener(), this);
+		pm.registerEvents(new landEventListeners(), this);
+		pm.registerEvents(new playerStealEventListener(), this);
 	}
 
 	private void loadLands() {

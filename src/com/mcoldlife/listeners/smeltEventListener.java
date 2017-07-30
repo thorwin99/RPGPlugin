@@ -1,5 +1,5 @@
 package com.mcoldlife.listeners;
 
-public class smeltEvent {
+public class smeltEventListener {
 
 }

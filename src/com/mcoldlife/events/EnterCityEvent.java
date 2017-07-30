@@ -9,11 +9,12 @@ import com.mcoldlife.objects.RPPlayer;
 
 public class EnterCityEvent extends Event implements Cancellable{
 
+	private static final HandlerList handlers = new HandlerList();
 	private RPPlayer player;
 	private OLCity city;
 	private boolean cancelled;
 	
-	public EnterCityEvent(String event, RPPlayer player, OLCity city) {
+	public EnterCityEvent(RPPlayer player, OLCity city) {
 		super();
 		this.player = player;
 		this.city = city;
@@ -27,12 +28,6 @@ public class EnterCityEvent extends Event implements Cancellable{
 	@Override
 	public void setCancelled(boolean arg0) {
 		cancelled = arg0;
-		
-	}
-
-	@Override
-	public HandlerList getHandlers() {
-		return null;
 	}
 
 	/**
@@ -47,6 +42,15 @@ public class EnterCityEvent extends Event implements Cancellable{
 	 */
 	public OLCity getCity() {
 		return city;
+	}
+
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
+	
+	public static HandlerList getHandlerList() {
+	    return handlers;
 	}
 
 }

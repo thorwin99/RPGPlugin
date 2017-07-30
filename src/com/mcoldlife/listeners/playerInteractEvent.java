@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_12_R1.block.CraftBrewingStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -35,10 +36,11 @@ public class playerInteractEvent implements Listener{
 		Block clickedBlock = e.getClickedBlock();
 		ItemStack item = e.getItem();
 		runItemEvents(item, e);//All Item interact events which aren't bound to restrictions go here
-		if(player.getLand() == null){
+		if(player.getLand() == null){//TODO: is not important. only for name...
 			e.setCancelled(true);
 			return;
 		}
+		if(e.getAction() != Action.LEFT_CLICK_BLOCK && e.getAction() != Action.RIGHT_CLICK_BLOCK)return;
 		if(chunk.getLand() == player.getLand().getName()){
 			if(chunk.getCity() != null){
 				if(player.get_city().getName() == chunk.getCity()){

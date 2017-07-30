@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.mcoldlife.objects.RPGManager;
 
-public class leaveEvent implements Listener{
+public class playerLeaveEventListener implements Listener{
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e){

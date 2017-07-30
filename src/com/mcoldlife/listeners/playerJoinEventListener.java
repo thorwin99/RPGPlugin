@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.objects.RPPlayer;
 
-public class joinEvent implements Listener{
+public class playerJoinEventListener implements Listener{
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e){

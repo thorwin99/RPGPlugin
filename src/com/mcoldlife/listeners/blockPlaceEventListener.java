@@ -16,7 +16,7 @@ import com.mcoldlife.objects.Vector2D;
 import com.mcoldlife.rpg.ChunkUtils;
 import com.mcoldlife.rpg.lands;
 
-public class blockPlaceEvent implements Listener{
+public class blockPlaceEventListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onBlockPlace(BlockPlaceEvent e){

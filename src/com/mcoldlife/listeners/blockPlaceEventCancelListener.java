@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class blockPlaceEventCancel implements Listener{
+public class blockPlaceEventCancelListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void placeCancelled(BlockPlaceEvent e){

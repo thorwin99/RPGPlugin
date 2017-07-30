@@ -10,6 +10,7 @@ import com.mcoldlife.objects.jobs.Dieb;
 
 public class PlayerStealEvent extends Event implements Cancellable, conditional<RPPlayer>{
 
+	private static final HandlerList handlers = new HandlerList();
 	RPPlayer executor;
 	RPPlayer stolen;
 	private boolean cancelled;
@@ -32,7 +33,7 @@ public class PlayerStealEvent extends Event implements Cancellable, conditional<
 
 	@Override
 	public HandlerList getHandlers() {
-		return null;
+		return handlers;
 	}
 
 	@Override
@@ -55,6 +56,10 @@ public class PlayerStealEvent extends Event implements Cancellable, conditional<
 	 */
 	public RPPlayer getStolen() {
 		return stolen;
+	}
+	
+	public static HandlerList getHandlerList() {
+	    return handlers;
 	}
 
 }
