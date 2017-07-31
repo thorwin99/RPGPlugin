@@ -29,9 +29,9 @@ public class blockPlaceEventListener implements Listener{
 			e.setCancelled(true);
 			return;
 		}
-		if(player.getLand().getName() == chunk.getLand()){
+		if(player.getLand().getName().equals(chunk.getLand())){
 			if(chunk.getCity() != null){
-				if(chunk.getCity() == player.get_city().getName()){
+				if(player.get_city().getName().equals(chunk.getCity())){
 					OLCity city = player.get_city();
 					Vector2D vec = new Vector2D(clickedBlock.getLocation());
 					OLPlot plot =  city.inPlot(vec);

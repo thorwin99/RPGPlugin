@@ -36,7 +36,7 @@ public class RPGManager {
 			try {
 				restrictedCraftItems.add(Material.valueOf(m));
 			}catch(IllegalArgumentException e) {
-				
+				System.out.println(m + " is not a valid Material");
 			}
 		}
 		
@@ -44,7 +44,7 @@ public class RPGManager {
 			try {
 				restrictedInteractItems.add(Material.valueOf(m));
 			}catch(IllegalArgumentException e) {
-				
+				System.out.println(m + " is not a valid Material");
 			}
 		}
 		

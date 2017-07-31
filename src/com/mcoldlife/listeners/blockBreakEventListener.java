@@ -20,7 +20,6 @@ public class blockBreakEventListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled=true)
 	public void onBlockBreak(BlockBreakEvent e){
-		System.out.println("BREAK");
 		Player p = e.getPlayer();
 		RPPlayer player = RPGManager.getPlayer(p);
 		OLChunk chunk = RPGManager.getChunk(ChunkUtils.generateId(e.getBlock().getLocation().getChunk()));
@@ -29,11 +28,9 @@ public class blockBreakEventListener implements Listener{
 			e.setCancelled(true);
 			return;
 		}
-		if(player.getLand().getName() == chunk.getLand()){
-			System.out.println("inHisLand");
+		if(player.getLand().getName().equals(chunk.getLand())){
 			if(chunk.getCity() != null){
-				System.out.println("inCity");
-				if(chunk.getCity() == player.get_city().getName()){
+				if(player.get_city().getName().equals(chunk.getCity())){
 					OLCity city = player.get_city();
 					Vector2D vec = new Vector2D(clickedBlock.getLocation());
 					OLPlot plot =  city.inPlot(vec);
@@ -57,17 +54,22 @@ public class blockBreakEventListener implements Listener{
 					return;
 				}
 			}else{
-				couldBreak(clickedBlock, player, e);
+				couldBreakInLand(clickedBlock, e, player);
 			}
+		}
+		e.setCancelled(true);
+	}
+
+	private void couldBreakInLand(Block block, BlockBreakEvent e, RPPlayer player) {
+		if(player.get_job().containsBreakMaterial(block.getType())){
+				e.setCancelled(true);
 		}
 	}
 	
 	private void couldBreak(Block block, RPPlayer player, BlockBreakEvent e){
-		System.out.println("canBreak?");
 		if(RPGManager.restrictedBreakBlocks.contains(block.getType())){
 			if(!player.get_job().containsBreakMaterial(block.getType())){
 				e.setCancelled(true);
-				return;
 			}
 		}
 		
