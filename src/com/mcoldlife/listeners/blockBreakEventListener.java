@@ -55,13 +55,18 @@ public class blockBreakEventListener implements Listener{
 				}
 			}else{
 				couldBreakInLand(clickedBlock, e, player);
+				return;
 			}
+		}else {
+			e.setCancelled(true);
+			return;
 		}
-		e.setCancelled(true);
 	}
 
 	private void couldBreakInLand(Block block, BlockBreakEvent e, RPPlayer player) {
-		if(player.get_job().containsBreakMaterial(block.getType())){
+		System.out.println(player.get_job().getName() + "   Break:   " + player.get_job().get_breakBlocks().size());
+		System.out.println(player.get_job().containsBreakMaterial(block.getType()) + "  " + block.getType());
+		if(!player.get_job().containsBreakMaterial(block.getType())){
 				e.setCancelled(true);
 		}
 	}

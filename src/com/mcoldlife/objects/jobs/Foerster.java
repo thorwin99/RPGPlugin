@@ -16,7 +16,7 @@ public class Foerster extends OLJob{
 	
 	public Foerster() {
 		super(NAME);
-		create(BREAK_BLOCKS, BUILD_BLOCKS, CRAFT_ITEMS, true);
+		this.create(BREAK_BLOCKS, BUILD_BLOCKS, CRAFT_ITEMS, true);
 	}
 
 }

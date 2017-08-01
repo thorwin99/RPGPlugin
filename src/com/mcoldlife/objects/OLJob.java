@@ -38,7 +38,7 @@ public class OLJob {
 	 * @param craftItems All blocks the Player can craft
 	 */
 	public boolean create(List<Material> breakBlocks, List<Material> buildBlocks, List<Material> craftItems, boolean canBuildAnywhere){
-		if(!_isCreated){//TODO: maybe make lists to string lists
+		if(!_isCreated){
 			this._buildBlocks = buildBlocks;
 			this._breakBlocks = breakBlocks;
 			this._craftItems = craftItems;
@@ -102,30 +102,46 @@ public class OLJob {
 	 * 
 	 */
 	private void refreshBlocks() {
-		String[] buildBlockNames = (String[]) CustomConfig.getArray(_name, _folder, reference.PATH_JOB_BUILD_BLOCKS);
-		String[] destroyBlockNames = (String[]) CustomConfig.getArray(_name, _folder, reference.PATH_JOB_DESTROY_BLOCKS);
-
+		Object[] buildBlockNames = CustomConfig.getArray(_fileName, _folder, reference.PATH_JOB_BUILD_BLOCKS);
+		Object[] destroyBlockNames = CustomConfig.getArray(_fileName, _folder, reference.PATH_JOB_DESTROY_BLOCKS);
+		Object[] craftBlockNames = CustomConfig.getArray(_fileName, _folder, reference.PATH_JOB_CRAFT_ITEMS);
+		
 		if(buildBlockNames != null) {
-			for(String block : buildBlockNames){
+			for(Object oBlock : buildBlockNames){
+				String block = (String) oBlock;
 				try{
 					Material m = Material.valueOf(block);
 					if(!_buildBlocks.contains(m)){
 						_buildBlocks.add(m);
 					}
 				}catch(IllegalArgumentException e){
-					
+					System.out.println("Not Valid Material " + block + " in Job " + _name);
 				}
 			}
 		}
 		if(destroyBlockNames != null) {
-			for(String block : destroyBlockNames){
+			for(Object oBlock : destroyBlockNames){
+				String block = (String) oBlock;
 				try{
 					Material m = Material.valueOf(block);
 					if(!_breakBlocks.contains(m)){
 						_breakBlocks.add(m);
 					}
 				}catch(IllegalArgumentException e){
-					
+					System.out.println("Not Valid Material " + block + " in Job " + _name);
+				}
+			}
+		}
+		if(craftBlockNames != null) {
+			for(Object oBlock : craftBlockNames){
+				String block = (String) oBlock;
+				try{
+					Material m = Material.valueOf(block);
+					if(!_craftItems.contains(m)){
+						_craftItems.add(m);
+					}
+				}catch(IllegalArgumentException e){
+					System.out.println("Not Valid Material " + block + " in Job " + _name);
 				}
 			}
 		}
