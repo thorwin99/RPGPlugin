@@ -35,11 +35,11 @@ public class blockBreakEventListener implements Listener{
 					Vector2D vec = new Vector2D(clickedBlock.getLocation());
 					OLPlot plot =  city.inPlot(vec);
 					if(city.getPlot(player) != null && plot != null && plot == city.getPlot(player)) {
-						couldBreak(clickedBlock, player, e);
+						couldBreakRestricted(clickedBlock, player, e);
 					}else{
 						if(lands.isCityOnwer(player)){
 							if(plot != null && !city.plotOwned(plot.getName())){
-								couldBreak(clickedBlock, player, e);
+								couldBreakRestricted(clickedBlock, player, e);
 							}else{
 								e.setCancelled(true);
 								return;
@@ -54,7 +54,7 @@ public class blockBreakEventListener implements Listener{
 					return;
 				}
 			}else{
-				couldBreakInLand(clickedBlock, e, player);
+				couldBreakUnrestricted(clickedBlock, e, player);
 				return;
 			}
 		}else {
@@ -63,19 +63,15 @@ public class blockBreakEventListener implements Listener{
 		}
 	}
 
-	private void couldBreakInLand(Block block, BlockBreakEvent e, RPPlayer player) {
-		System.out.println(player.get_job().getName() + "   Break:   " + player.get_job().get_breakBlocks().size());
-		System.out.println(player.get_job().containsBreakMaterial(block.getType()) + "  " + block.getType());
+	private void couldBreakUnrestricted(Block block, BlockBreakEvent e, RPPlayer player) {
 		if(!player.get_job().containsBreakMaterial(block.getType())){
 				e.setCancelled(true);
 		}
 	}
 	
-	private void couldBreak(Block block, RPPlayer player, BlockBreakEvent e){
+	private void couldBreakRestricted(Block block, RPPlayer player, BlockBreakEvent e){
 		if(RPGManager.restrictedBreakBlocks.contains(block.getType())){
-			if(!player.get_job().containsBreakMaterial(block.getType())){
-				e.setCancelled(true);
-			}
+			couldBreakUnrestricted(block, e, player);
 		}
 		
 	}

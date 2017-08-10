@@ -149,21 +149,20 @@ public class RPGManager {
 	 * @param job OLJob
 	 */
 	public static void addJob(String name, OLJob job){
-		
 		if(!jobs.containsKey(name)){
 			jobs.put(name, job);
 			for(Material m : job.get_craftItems()){
-				if(!restrictedCraftItems.contains(m) && m != null){
+				if((!restrictedCraftItems.contains(m)) && m != null){
 					restrictedCraftItems.add(m);
 				}
 			}
 			for(Material m : job.get_breakBlocks()){
-				if(!restrictedBreakBlocks.contains(m) && m != null){
+				if((!restrictedBreakBlocks.contains(m)) && m != null){
 					restrictedBreakBlocks.add(m);
 				}
 			}
 			for(Material m : job.get_buildBlocks()){
-				if(!restrictedBuildBlocks.contains(m) && m != null){
+				if((!restrictedBuildBlocks.contains(m)) && m != null){
 					restrictedBuildBlocks.add(m);
 				}
 			}

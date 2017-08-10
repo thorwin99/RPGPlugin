@@ -20,7 +20,6 @@ public class blockPlaceEventListener implements Listener{
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onBlockPlace(BlockPlaceEvent e){
-		System.out.println("PLACE");
 		Player p = e.getPlayer();
 		RPPlayer player = new RPPlayer(p);
 		OLChunk chunk = RPGManager.getChunk(ChunkUtils.generateId(e.getBlock().getLocation().getChunk()));
@@ -36,11 +35,11 @@ public class blockPlaceEventListener implements Listener{
 					Vector2D vec = new Vector2D(clickedBlock.getLocation());
 					OLPlot plot =  city.inPlot(vec);
 					if(city.getPlot(player) != null && plot != null && plot == city.getPlot(player)) {
-						couldBuild(clickedBlock, player, e);
+						couldBuildRestricted(clickedBlock, player, e);
 					}else{
 						if(lands.isCityOnwer(player)){
 							if(plot != null && !city.plotOwned(plot.getName())){
-								couldBuild(clickedBlock, player, e);
+								couldBuildRestricted(clickedBlock, player, e);
 							}else{
 								e.setCancelled(true);
 								return;
@@ -55,20 +54,23 @@ public class blockPlaceEventListener implements Listener{
 					return;
 				}
 			}else{
-				couldBuild(clickedBlock, player, e);
+				couldBuildUnrestricted(clickedBlock, player, e);
 			}
+		}else {
+			e.setCancelled(true);
+			return;
 		}
 	}
 	
-	private void couldBuild(Block block, RPPlayer player, BlockPlaceEvent e){
-		
+	private void couldBuildUnrestricted(Block block, RPPlayer player, BlockPlaceEvent e){
+		if(!player.get_job().containsBuildMaterial(block.getType())){
+			e.setCancelled(true);
+		}
+	}
+	
+	private void couldBuildRestricted(Block block, RPPlayer player, BlockPlaceEvent e){
 		if(RPGManager.restrictedBuildBlocks.contains(block.getType())){
-			if(!player.get_job().containsBuildMaterial(block.getType())){
-				e.setCancelled(true);
-				return;
-			}
+			couldBuildUnrestricted(block, player, e);
 		}
-		
 	}
-	
 }
