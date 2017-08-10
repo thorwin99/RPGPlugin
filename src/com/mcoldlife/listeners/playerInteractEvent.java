@@ -38,6 +38,7 @@ public class playerInteractEvent implements Listener{
 		runItemEvents(item, e);//All Item interact events which aren't bound to restrictions go here
 
 		//TODO Cancel only if restricted intractable
+		if(!RPGManager.restrictedInteractItems.contains(clickedBlock.getType()))return;
 		if(e.getAction() != Action.RIGHT_CLICK_BLOCK)return;
 		if(player.getLand() == null){//TODO: is not important. only for name...
 			e.setCancelled(true);
