@@ -23,6 +23,7 @@ import com.mcoldlife.commands.money;
 import com.mcoldlife.commands.pay;
 import com.mcoldlife.commands.plot;
 import com.mcoldlife.items.NetherCrafter;
+import com.mcoldlife.listeners.blockBreakEventCancelListener;
 import com.mcoldlife.listeners.blockBreakEventListener;
 import com.mcoldlife.listeners.blockPlaceEventCancelListener;
 import com.mcoldlife.listeners.blockPlaceEventListener;
@@ -77,6 +78,7 @@ public class rpg extends JavaPlugin{
 		pm.registerEvents(new blockBreakEventListener(), this);
 		pm.registerEvents(new blockPlaceEventListener(), this);
 		pm.registerEvents(new blockPlaceEventCancelListener(), this);
+		pm.registerEvents(new blockBreakEventCancelListener(), this);
 		pm.registerEvents(new chunkLoadEventListener(), this);
 		pm.registerEvents(new playerCraftEventListener(), this);
 		pm.registerEvents(new playerLeaveEventListener(), this);
