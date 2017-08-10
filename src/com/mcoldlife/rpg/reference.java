@@ -20,6 +20,8 @@ public class reference {
 	public static String PATH_RESTRICTED_BLOCKS = "RestrictedBlocks";
 	public static String PATH_RESTRICTED_INTERACT = PATH_RESTRICTED_BLOCKS + ".Interactable";
 	public static String PATH_RESTRICTED_CRAFTABLE = PATH_RESTRICTED_BLOCKS + ".Craftable";
+	public static String PATH_ENABLE_PERM = "Property.Permissions";
+	public static String PATH_ENABLE_PERM_BUILD_ANYWHERE = PATH_ENABLE_PERM + ".BuildAnywhere";
 	
 	//Jobs config
 	public static String PATH_JOB_NAME = "Name";
@@ -77,10 +79,14 @@ public class reference {
 	
 	//Plugin
 	public static rpg PLUGIN_REFERENCE;
+	
+	//Activated Permissions
+	public static boolean B_ENABLED_PERM_BUILD_ANYWHERE;
 	public static void initReferences(PluginManager pm, rpg plugin){
 		
 		PLUGIN_REFERENCE = plugin;
 		JOB_CHANGE_PRICE = plugin.getConfig().getInt(PATH_JOBS_CHANGE_PRICE);
+		B_ENABLED_PERM_BUILD_ANYWHERE = plugin.getConfig().getBoolean(PATH_ENABLE_PERM_BUILD_ANYWHERE);
 		RPG_WORLD = plugin.getServer().getWorld(plugin.getConfig().getString(PATH_WORLD_NAME));
 		FOLDER_CLASSES = plugin.getDataFolder().toPath().resolve("Jobs");
 		FOLDER_PLAYERS = plugin.getDataFolder().toPath().resolve("Players");

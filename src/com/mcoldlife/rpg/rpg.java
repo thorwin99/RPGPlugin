@@ -125,7 +125,8 @@ public class rpg extends JavaPlugin{
 		this.getConfig().addDefault(reference.PATH_JOBS_CHANGE_PRICE, 3000);
 		this.getConfig().addDefault(reference.PATH_WORLD_NAME, "world");
 		this.getConfig().addDefault(reference.PATH_RESTRICTED_CRAFTABLE, restrictedCraftItems);
-		this.getConfig().addDefault(reference.PATH_RESTRICTED_INTERACT, restrictedInteractItems);	
+		this.getConfig().addDefault(reference.PATH_RESTRICTED_INTERACT, restrictedInteractItems);
+		this.getConfig().addDefault(reference.PATH_ENABLE_PERM_BUILD_ANYWHERE, false);
 		this.getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
