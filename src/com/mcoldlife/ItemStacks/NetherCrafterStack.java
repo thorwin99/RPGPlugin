@@ -6,7 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class NetherCrafterStack extends ItemStack {
 
-	public static final String NAME = "§cNetherCrafter";
+	public static final String NAME = ItemStackAttr.NAME_NETHER_CRAFTER;
 	
 	public NetherCrafterStack(){
 		this.setType(Material.BREWING_STAND_ITEM);

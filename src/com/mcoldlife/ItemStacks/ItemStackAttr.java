@@ -9,4 +9,7 @@ public class ItemStackAttr {
 	public static final List<String> LORE_POS_STICK = Arrays.asList("§7Rechtsklick für Pos 1", "§7Linksklick für Pos 2");
 	
 	public static final String NAME_NETHER_CRAFTER = "§cNetherCrafter";
+	
+	public static final String NAME_CONQUESTER = "§cChunk claimer";
+	public static final List<String> LORE_CONQUESTER = Arrays.asList("§7Rechtsklick für Landclaim", "§7Linksklick für Stadtclaim");
 }

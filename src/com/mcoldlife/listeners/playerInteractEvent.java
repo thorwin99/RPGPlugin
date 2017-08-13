@@ -13,7 +13,9 @@ import org.bukkit.inventory.ItemStack;
 
 import com.mcoldlife.ItemStacks.ItemStackAttr;
 import com.mcoldlife.ItemStacks.PositionStickStack;
+import com.mcoldlife.items.Conquester;
 import com.mcoldlife.items.NetherCrafter;
+import com.mcoldlife.items.PositionStick;
 import com.mcoldlife.objects.OLChunk;
 import com.mcoldlife.objects.OLCity;
 import com.mcoldlife.objects.OLPlot;
@@ -38,7 +40,7 @@ public class playerInteractEvent implements Listener{
 		runItemEvents(item, e);//All Item interact events which aren't bound to restrictions go here
 
 		//TODO Cancel only if restricted intractable
-		if(!RPGManager.restrictedInteractItems.contains(clickedBlock.getType()))return;
+		if(!RPGManager.restrictedInteractItems.contains(clickedBlock.getType()) || clickedBlock.getType() == Material.BREWING_STAND)return;
 		if(e.getAction() != Action.RIGHT_CLICK_BLOCK)return;
 		if(player.getLand() == null){//TODO: is not important. only for name...
 			e.setCancelled(true);
@@ -46,7 +48,7 @@ public class playerInteractEvent implements Listener{
 		}
 		if(chunk.getLand() == player.getLand().getName()){
 			if(chunk.getCity() != null){
-				if(player.get_city().getName() == chunk.getCity()){
+				if(chunk.getCity().equals(player.get_city().getName())){
 					OLCity city = RPGManager.getCity(chunk.getCity());
 					OLPlot plot = city.inPlot((new Vector2D(p.getLocation())));
 					if(plot != null){
@@ -84,12 +86,15 @@ public class playerInteractEvent implements Listener{
 	 * @param item Item of playerInteractEvent
 	 */
 	private void runItemEvents(ItemStack item, PlayerInteractEvent e) {
+		RPPlayer player = RPGManager.getPlayer(e.getPlayer());
 		if(item == null)return;
 		if(item.getItemMeta() == null)return;
 		if(item.getItemMeta().getDisplayName() == null)return;
 		switch(item.getItemMeta().getDisplayName()){
 		case ItemStackAttr.NAME_POS_STICK:
-			PositionStickStack.interact(e);
+			(new PositionStick()).interact(player, e.getAction(), e);
+			break;
+		case ItemStackAttr.NAME_CONQUESTER:
 			break;
 		default:
 			break;
