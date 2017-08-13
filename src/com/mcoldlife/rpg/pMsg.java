@@ -20,7 +20,9 @@ public class pMsg {
 	public static String ERR_CITY_NOT_EXISTS = "§cDiese Stadt existiert nicht.";
 	
 	public static String ERR_CHUNK_HAS_CITY = "§cDer Chunk gehört bereits einer Stadt.";
+	public static String ERR_CHUNK_HAS_NO_CITY = "§cDer Chunk gehört keiner Stadt.";
 	public static String ERR_CHUNK_HAS_LAND = "§cDer Chunk gehört bereits einem Land.";
+	public static String ERR_CHUNK_HAS_NO_LAND = "§cDer Chunk gehört keinem Land.";
 	public static String ERR_CHUNK_OWNED_BY_OTHER_LAND = "§cDieser Chunk gehört einem anderem Land als deinem. Du musst ihn erst einnehmen.";
 	public static String ERR_CHUNK_OWNED_BY_SAME_LAND = "§cDieser Chunk gehört bereits deinem Land.";
 	public static String ERR_CHUNK_OWNED_BY_SAME_CITY = "§cDieser Chunk gehört bereits deiner Stadt.";

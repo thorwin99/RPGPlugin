@@ -102,7 +102,7 @@ public class RPGManager {
 	
 	/**Gets Chunk by ID
 	 * @param id Chunk id
-	 * @return OLChunk if loaded
+	 * @return OLChunk The loaded Chunk
 	 */
 	public static OLChunk getChunk(String id){
 		
@@ -119,6 +119,16 @@ public class RPGManager {
 		}
 
 		return null;
+	}
+	/**Gets Chunk by ID
+	 * @param chunk The chunk to gets
+	 * @return OLChunk the loaded OLChunk
+	 */
+	public static OLChunk getChunk(Chunk chunk){
+		
+		String id = ChunkUtils.generateId(chunk);
+		
+		return getChunk(id);
 	}
 	
 

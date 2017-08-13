@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -54,7 +55,11 @@ public class NetherCrafter implements OLItem, conditional<OLJob>{
  	
 	@Override
 	public boolean interact(RPPlayer p, Action action, Object argument) {
-		
+		if(isTrue(p.get_job())) {
+			showCraftingView(p.getBukkitPlayer());
+			if(argument instanceof PlayerInteractEvent) 
+				((PlayerInteractEvent) argument).setCancelled(true);
+		}
 		return false;
 	}
 

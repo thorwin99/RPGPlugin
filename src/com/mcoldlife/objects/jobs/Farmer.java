@@ -16,7 +16,7 @@ public class Farmer extends OLJob{
 	
 	public Farmer() {
 		super(NAME);
-		create(BREAK_BLOCKS, BUILD_BLOCKS, CRAFT_ITEMS, false);//TODO: Maybe change later
+		create(BREAK_BLOCKS, BUILD_BLOCKS, CRAFT_ITEMS, false);
 	}
 
 }

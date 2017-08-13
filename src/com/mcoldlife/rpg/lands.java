@@ -32,7 +32,7 @@ public class lands {
 		}
 		
 		if(founder.getLand() == null){
-			OLChunk baseChunk = new OLChunk(founder.getBukkitPlayer().getLocation().getChunk());
+			OLChunk baseChunk = RPGManager.getChunk(founder.getBukkitPlayer().getLocation().getChunk());
 			if(baseChunk.getLand() == null){
 				baseChunk.setLand(landName);
 				
@@ -68,12 +68,12 @@ public class lands {
 		}
 		
 		if(founder.get_city() == null){
-			OLChunk baseChunk = new OLChunk(founder.getBukkitPlayer().getLocation().getChunk());
+			OLChunk baseChunk = RPGManager.getChunk(founder.getBukkitPlayer().getLocation().getChunk());
 			if(baseChunk.getCity() == null){
 				if(baseChunk.getLand() == null){
 					baseChunk.setLand(founder.getLand().getName());
 				}
-				if(baseChunk.getLand() == founder.getLand().getName()){
+				if(baseChunk.getLand().equals(founder.getLand().getName())){
 					OLCity city = new OLCity(cityName);
 					RPGManager.citys.put(cityName, city);
 					founder.setCity(city);
@@ -118,7 +118,7 @@ public class lands {
 			return false;
 		}
 		
-		if(city.getOwner() == cityOwner.getBukkitPlayer().getUniqueId()){
+		if(isCityOnwer(cityOwner)){
 			if(!city.plotExists(plotName)){
 				//Make Plot
 				return city.makePlot(plotName, new Vector2D(cityOwner.getPosPlotCoord(0)), new Vector2D(cityOwner.getPosPlotCoord(1)), price);
@@ -148,8 +148,14 @@ public class lands {
 		}
 		
 		OLChunk chunk = new OLChunk(corner.getChunk());
-		if(chunk.getCity() == cityOwner.get_city().getName()){
-			if(cityOwner.get_city().getOwner() == cityOwner.getBukkitPlayer().getUniqueId()){
+		
+		if(chunk.getCity() == null) {
+			p.sendMessage(prefix + pMsg.ERR_CHUNK_HAS_NO_CITY);
+			return false;
+		}
+		
+		if(chunk.getCity().equals(cityOwner.get_city().getName())){
+			if(isCityOnwer(cityOwner)){
 				if(cityOwner.get_city().inPlot(new Vector2D(corner)) == null){
 					cityOwner.addPossPlotCoord(corner, index);
 					return true;
@@ -177,7 +183,7 @@ public class lands {
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
 			return false;
 		}
-		if(city.getOwner() == p.getUniqueId()){
+		if(isCityOnwer(cityOwner)){
 			if(city.plotExists(name)){
 				if(!city.plotOwned(name)){
 					city.deletePlot(name);
@@ -206,7 +212,7 @@ public class lands {
 		OLCity city = player.get_city();
 		if(city == null){
 			if(name == null){
-				OLChunk localChunk = new OLChunk(p.getLocation().getChunk());
+				OLChunk localChunk = RPGManager.getChunk(p.getLocation().getChunk());
 				if(player.getLand() == null){
 					player.setLand(RPGManager.lands.get(localChunk.getLand()));
 				}
@@ -249,15 +255,22 @@ public class lands {
 	 */
 	public static boolean claimChunk(RPPlayer player){
 		Player p = player.getBukkitPlayer();
-		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
-		
+		OLChunk chunk = RPGManager.getChunk(p.getLocation().getChunk());
+		if(player.get_city() == null) {
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
+			return false;
+		}
 		if(player.get_city().getOwner() != p.getUniqueId()){
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 			return false;
 		}
+		if(player.getLand() == null) {
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_LAND);
+			return false;
+		}
 		
-		if(chunk.getCity() != player.get_city().getName()){
-			if(chunk.getLand() == player.getLand().getName()){
+		if(!player.get_city().getName().equals(chunk.getCity())){
+			if(player.getLand().getName().equals(chunk.getLand())){
 				chunk.setCity(player.get_city().getName());
 				player.get_city().addChunk(chunk);
 				return true;
@@ -279,14 +292,19 @@ public class lands {
 	public static boolean contestChunk(RPPlayer player){
 		Player p = player.getBukkitPlayer();
 		OLLand land = player.getLand();
-		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
+		OLChunk chunk = RPGManager.getChunk(p.getLocation().getChunk());
+		
+		if(land == null) {
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_LAND);
+			return false;
+		}
 		
 		if(land.getOwner() != p.getUniqueId()){//TODO: Soldiers can contest too
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_LAND);
 			return false;
 		}
 		
-		if(chunk.getLand() == land.getName()){
+		if(land.getName().equals(chunk.getLand())){
 			chunk.setLand(null);
 			land.addChunk(chunk);
 			return true;
@@ -303,7 +321,7 @@ public class lands {
 	 */
 	public static OLCity inCity(RPPlayer player){
 		Player p = player.getBukkitPlayer();
-		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
+		OLChunk chunk = RPGManager.getChunk(p.getLocation().getChunk());
 		
 		if(RPGManager.citys.containsKey(chunk.getCity()))
 		return RPGManager.citys.get(chunk.getCity());
@@ -317,7 +335,7 @@ public class lands {
 	 */
 	public static OLLand inLand(RPPlayer player){
 		Player p = player.getBukkitPlayer();
-		OLChunk chunk = new OLChunk(p.getLocation().getChunk());
+		OLChunk chunk = RPGManager.getChunk(p.getLocation().getChunk());
 		
 		if(RPGManager.lands.containsKey(chunk.getLand()))
 		return RPGManager.lands.get(chunk.getLand());
@@ -347,10 +365,15 @@ public class lands {
 	public static boolean setPlotPrice(RPPlayer player, int price, String plotName){
 		OLCity city = player.get_city();
 		Player p = player.getBukkitPlayer();
-		if(!isCityOnwer(player))p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+		if(!isCityOnwer(player))
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 		
 		if(city.plotExists(plotName)){
-			if(city.getPlot(plotName).getOwner() == null){
+			OLPlot plot = city.getPlot(plotName);
+			if(plot == null) {
+				p.sendMessage(prefix + pMsg.ERR_PLOT_NOT_EXISTS);
+			}
+			if(plot.getOwner() == null){
 				city.getPlot(plotName).setPrice(price);
 				return true;
 			}else{
@@ -374,7 +397,7 @@ public class lands {
 		
 		OLCity city = player.get_city();
 		if(city != null){
-			if(city.getOwner() == player.getBukkitPlayer().getUniqueId()){
+			if(player.getBukkitPlayer().getUniqueId().equals(city.getOwner())){
 				return true;
 			}
 		}				
@@ -390,7 +413,7 @@ public class lands {
 		
 		OLLand land = player.getLand();
 		if(land != null){
-			if(land.getOwner() == player.getBukkitPlayer().getUniqueId()){
+			if(player.getBukkitPlayer().getUniqueId().equals(land.getOwner())){
 				return true;
 			}
 		}				
@@ -404,7 +427,7 @@ public class lands {
 	 */
 	public static boolean isCityOnwer(RPPlayer player, OLCity city){
 		if(city != null){
-			if(city.getOwner() == player.getBukkitPlayer().getUniqueId()){
+			if(player.getBukkitPlayer().getUniqueId().equals(city.getOwner())){
 				return true;
 			}
 		}				
@@ -418,7 +441,7 @@ public class lands {
 	 */
 	public static boolean isLandOnwer(RPPlayer player, OLLand land){
 		if(land != null){
-			if(land.getOwner() == player.getBukkitPlayer().getUniqueId()){
+			if(player.getBukkitPlayer().getUniqueId().equals(land.getOwner())){
 				return true;
 			}
 		}				
@@ -457,6 +480,7 @@ public class lands {
 			player.get_city().setTax(tax);
 		}else{
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
+			return false;
 		}
 		
 		return true;
@@ -469,7 +493,7 @@ public class lands {
 	 */
 	public static boolean joinLand(RPPlayer player, String landName){
 		
-		if(!RPGManager.lands.containsKey(landName)){
+		if(!RPGManager.getLands().containsKey(landName)){
 			player.getBukkitPlayer().sendMessage(prefix + pMsg.ERR_LAND_NOT_EXISTS);
 		}
 		
