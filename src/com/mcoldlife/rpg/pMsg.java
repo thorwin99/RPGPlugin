@@ -50,10 +50,11 @@ public class pMsg {
 	public static String ERR_CMD_USAGE_CITY_MONEY = "§c/city money";
 	public static String ERR_CMD_USAGE_CITY_SET = "§c/city set <tax> <value>";
 	
-	public static String ERR_CMD_USAGE_LAND = "§c/land <create|join>";
+	public static String ERR_CMD_USAGE_LAND = "§c/land <create|join|conquester>";
 	public static String ERR_CMD_USAGE_LAND_CREATE = "§c/land create <name>";
 	public static String ERR_CMD_USAGE_LAND_JOIN = "§c/land join <name>";
 	public static String ERR_CMD_USAGE_LAND_LIST = "§c/land list [citys]";
+	public static String ERR_CMD_USAGE_LAND_CONQUESTER = "§cConquester bereits erhalten.";
 	
 	public static String ERR_CMD_USAGE_PLOT = "§c/plot <create|pos|list|claim|unclaim|delete>";
 	public static String ERR_CMD_USAGE_PLOT_CREATE = "§c/plot create <name> <price>";

@@ -256,6 +256,10 @@ public class lands {
 	public static boolean claimChunk(RPPlayer player){
 		Player p = player.getBukkitPlayer();
 		OLChunk chunk = RPGManager.getChunk(p.getLocation().getChunk());
+		if(player.getLand() == null) {
+			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_LAND);
+			return false;
+		}
 		if(player.get_city() == null) {
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
 			return false;
@@ -264,13 +268,9 @@ public class lands {
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 			return false;
 		}
-		if(player.getLand() == null) {
-			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_LAND);
-			return false;
-		}
 		
 		if(!player.get_city().getName().equals(chunk.getCity())){
-			if(player.getLand().getName().equals(chunk.getLand())){
+			if(!player.getLand().getName().equals(chunk.getLand())){
 				chunk.setCity(player.get_city().getName());
 				player.get_city().addChunk(chunk);
 				return true;
@@ -304,12 +304,14 @@ public class lands {
 			return false;
 		}
 		
-		if(land.getName().equals(chunk.getLand())){
+		
+		
+		if(!land.getName().equals(chunk.getLand())){
 			chunk.setLand(null);
 			land.addChunk(chunk);
 			return true;
 		}else{
-			p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_OTHER_LAND);
+			p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_SAME_LAND);
 		}
 		
 		return false;

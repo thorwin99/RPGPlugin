@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.mcoldlife.ItemStacks.ItemStackAttr;
-import com.mcoldlife.ItemStacks.PositionStickStack;
 import com.mcoldlife.items.Conquester;
 import com.mcoldlife.items.NetherCrafter;
 import com.mcoldlife.items.PositionStick;
@@ -95,6 +94,7 @@ public class playerInteractEvent implements Listener{
 			(new PositionStick()).interact(player, e.getAction(), e);
 			break;
 		case ItemStackAttr.NAME_CONQUESTER:
+			(new Conquester()).interact(player, e.getAction(), e);
 			break;
 		default:
 			break;

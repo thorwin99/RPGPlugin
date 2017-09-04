@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.CustomConfig;
 import com.essentials.mcoldlife.main.Reference;
+import com.mcoldlife.items.Conquester;
 import com.mcoldlife.objects.OLCity;
 import com.mcoldlife.objects.OLLand;
 import com.mcoldlife.objects.RPGManager;
@@ -25,26 +26,16 @@ public class land implements CommandExecutor{
 			if(args.length >= 1){
 				switch(args[0].toLowerCase()){
 				case "create":
-					excecuteSubCreate(args, p);
+					executeSubCreate(args, p);
 					break;
 				case "join":
-					excecuteSubJoin(args, p);
+					executeSubJoin(args, p);
 					break;
 				case "list":
-					if(args.length == 1){
-						printLands(sender);
-					}else if(args.length == 2){
-						switch(args[1]){
-						case "citys":
-							printCitys(p);
-							break;
-						default:
-							p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_LIST);
-							break;
-						}
-					}else{
-						p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_LIST);
-					}
+					executeSubList(sender, args, p);
+					break;
+				case "conquester":
+					executeSubConquester(p);
 					break;
 				default:
 					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CREATE);
@@ -61,11 +52,37 @@ public class land implements CommandExecutor{
 		return false;
 	}
 
+	private void executeSubConquester(Player p) {
+		Conquester c = new Conquester();
+		if(!p.getInventory().contains(c.getItemStack())) {
+			p.getInventory().addItem(c.getItemStack());
+		}else{
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_CONQUESTER);
+		}
+	}
+
+	private void executeSubList(CommandSender sender, String[] args, Player p) {
+		if(args.length == 1){
+			printLands(sender);
+		}else if(args.length == 2){
+			switch(args[1]){
+			case "citys":
+				printCitys(p);
+				break;
+			default:
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_LIST);
+				break;
+			}
+		}else{
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_LIST);
+		}
+	}
+
 	/**Excecute's sub command join
 	 * @param args Command arguments
 	 * @param p command sender Player
 	 */
-	private void excecuteSubJoin(String[] args, Player p) {
+	private void executeSubJoin(String[] args, Player p) {
 		if(args.length == 2){
 			RPPlayer player = RPGManager.getPlayer(p);
 			String landName = args[1];
@@ -79,7 +96,7 @@ public class land implements CommandExecutor{
 	 * @param args Command arguments
 	 * @param p command sender Player
 	 */
-	private void excecuteSubCreate(String[] args, Player p) {
+	private void executeSubCreate(String[] args, Player p) {
 		if(args.length == 2){
 			String landName = args[1];
 			RPPlayer founder = RPGManager.getPlayer(p);
