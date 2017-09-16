@@ -264,7 +264,7 @@ public class lands {
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_CITY);
 			return false;
 		}
-		if(player.get_city().getOwner() != p.getUniqueId()){
+		if(!player.get_city().getOwner().equals(p.getUniqueId())){
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_CITY);
 			return false;
 		}
@@ -298,8 +298,7 @@ public class lands {
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_IN_LAND);
 			return false;
 		}
-		
-		if(land.getOwner() != p.getUniqueId()){//TODO: Soldiers can contest too
+		if(!land.getOwner().equals(p.getUniqueId())){//TODO: Soldiers can contest too
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_NOT_OWNER_OF_LAND);
 			return false;
 		}

@@ -17,6 +17,7 @@ public class ConquesterItemStack extends ItemStack {
 		ItemMeta meta  = this.getItemMeta();
 		meta.setDisplayName(NAME);
 		meta.setLore(LORE);
+		this.setItemMeta(meta);
 	}
 	
 }
