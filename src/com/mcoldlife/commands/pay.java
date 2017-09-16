@@ -7,7 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.Reference;
-import com.mcoldlife.rpg.Money;
+import com.mcoldlife.objects.RPGManager;
+import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.rpg.pMsg;
 
 public class pay implements CommandExecutor{
@@ -16,8 +17,7 @@ public class pay implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(sender instanceof Player){
-			Player p = (Player) sender;
-			
+			RPPlayer p = RPGManager.getPlayer((Player) sender);
 			if(label.equalsIgnoreCase("pay")){
 				
 				if(args.length == 2){
@@ -25,28 +25,28 @@ public class pay implements CommandExecutor{
 					try{
 						amount = Integer.parseInt(args[1]);
 					}catch(NumberFormatException e) {
-						p.sendMessage(Reference.CHAT_PREFIX + "§c/pay <empfaenger> <menge>");
+						p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§c/pay <empfaenger> <menge>");
 						return false;
 					}
 					String otherPlayer = args[0];
-					Player player = Bukkit.getPlayerExact(otherPlayer);
+					RPPlayer player = RPGManager.getPlayer(Bukkit.getPlayerExact(otherPlayer));
 					if(player == null){
-						p.sendMessage(Reference.CHAT_PREFIX + "§cDer Spieler §6" + otherPlayer + " §c ist nicht online.");
+						p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§cDer Spieler §6" + otherPlayer + " §c ist nicht online.");
 						return false;
 					}
-					if(Money.hasEnoughMoney(p, amount)){
+					if(p.hasEnoughMoney(amount)){
 						
-						Money.pay(p, amount);
-						Money.addMoney(player, amount);
-						p.sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + amount + " Gold §a an §6" + otherPlayer + " §agezahlt.");
-						player.sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + amount + " Gold §a von §6" + p.getDisplayName() + " §abekommen.");
+						p.pay(amount);
+						player.addMoney(amount);
+						p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + amount + " Gold §a an §6" + otherPlayer + " §agezahlt.");
+						player.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + amount + " Gold §a von §6" + p.getBukkitPlayer().getDisplayName() + " §abekommen.");
 						
 					}else{
-						p.sendMessage(Reference.CHAT_PREFIX + "§cDu hast zu wenig Gold.");
+						p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§cDu hast zu wenig Gold.");
 					}
 					
 				}else{
-					p.sendMessage(Reference.CHAT_PREFIX + "§c/pay <empfaenger> <menge>");
+					p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§c/pay <empfaenger> <menge>");
 				}
 				
 			}

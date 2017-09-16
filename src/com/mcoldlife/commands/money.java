@@ -7,7 +7,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.Reference;
-import com.mcoldlife.rpg.Money;
+import com.mcoldlife.objects.RPGManager;
+import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.rpg.pMsg;
 
 public class money implements CommandExecutor{
@@ -20,10 +21,10 @@ public class money implements CommandExecutor{
 			return false;
 		}
 		
-		Player p = (Player) sender;
+		RPPlayer p = RPGManager.getPlayer((Player) sender);
 		
 		if(label.equalsIgnoreCase("money"))
-			p.sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + Money.getMoney(p) + " Gold.");
+			p.getBukkitPlayer().sendMessage(Reference.CHAT_PREFIX + "§aDu hast §6" + p.getMoney() + " Gold.");
 		return false;
 	}
 

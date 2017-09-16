@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.essentials.mcoldlife.main.CustomConfig;
-import com.mcoldlife.rpg.Money;
 import com.mcoldlife.rpg.reference;
 
 public class RPPlayer{
@@ -36,7 +35,7 @@ public class RPPlayer{
 			_city = (city != null && city != "null" && city != "NULL") ? RPGManager.citys.get(city) : null;
 			_land = (land != null && land != "null" && land != "NULL") ? RPGManager.lands.get(land) : null;
 			_job = (RPGManager.getJob(job) != null) ? RPGManager.getJob(job) : null;
-			_money = Money.getMoney(_bp);
+			_money = (int) CustomConfig.get(_fileName, _folder, reference.PATH_PLAYER_MONEY);
 			if(_job == null){
 				set_job(null);
 			}
@@ -95,8 +94,8 @@ public class RPPlayer{
 		
 		int tax = get_city().getTax();
 		
-		if(Money.hasEnoughMoney(getBukkitPlayer(), tax)){
-			Money.pay(getBukkitPlayer(), tax);
+		if(this.hasEnoughMoney(tax)){
+			this.pay(tax);
 			get_city().set_money(get_city().get_money() + tax);
 		}
 		
@@ -175,7 +174,7 @@ public class RPPlayer{
 	 */
 	public void addMoney(int n){
 		
-		setMoney(_money + n);
+		this.setMoney(_money + n);
 	}
 	
 	/**Checks if Player has enough money
@@ -196,7 +195,7 @@ public class RPPlayer{
 	public boolean pay(int n){
 		int rest = _money - n;
 		if(rest >= 0){
-			setMoney(_money);
+			this.setMoney(rest);
 			return true;
 		}
 		return false;

@@ -75,7 +75,10 @@ public class reference {
 	
 	//Worlds
 	public static World RPG_WORLD = null;
-	public static int JOB_CHANGE_PRICE = -1;
+	public static int JOB_CHANGE_PRICE = 0;
+	public static int LAND_CREATE_PRICE = 0;
+	public static int CITY_CREATE_PRICE = 0;
+	public static int CITY_EXPAND_PRICE = 0;
 	
 	//Plugin
 	public static rpg PLUGIN_REFERENCE;
@@ -85,6 +88,9 @@ public class reference {
 	public static void initReferences(PluginManager pm, rpg plugin){
 		
 		PLUGIN_REFERENCE = plugin;
+		LAND_CREATE_PRICE = plugin.getConfig().getInt(PATH_LAND_PRICE);
+		CITY_CREATE_PRICE = plugin.getConfig().getInt(PATH_CITY_PRICE);
+		CITY_EXPAND_PRICE = plugin.getConfig().getInt(PATH_CITY_EXPAND_PRICE);
 		JOB_CHANGE_PRICE = plugin.getConfig().getInt(PATH_JOBS_CHANGE_PRICE);
 		B_ENABLED_PERM_BUILD_ANYWHERE = plugin.getConfig().getBoolean(PATH_ENABLE_PERM_BUILD_ANYWHERE);
 		RPG_WORLD = plugin.getServer().getWorld(plugin.getConfig().getString(PATH_WORLD_NAME));

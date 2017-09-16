@@ -26,6 +26,11 @@ public class lands {
 	public static boolean createLand(String landName, RPPlayer founder){
 		Player p = founder.getBukkitPlayer();
 		
+		if(!founder.hasEnoughMoney(reference.LAND_CREATE_PRICE)) {
+			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+			return false;
+		}
+		
 		if(CustomConfig.exists(landName + ".yml", reference.FOLDER_LANDS.toString())){
 			p.sendMessage(prefix + pMsg.ERR_LAND_EXISTS);
 			return false;
@@ -39,6 +44,7 @@ public class lands {
 				OLLand land = new OLLand(landName);
 				RPGManager.addLand(landName, land);
 				founder.setLand(RPGManager.lands.get(landName));
+				founder.pay(reference.LAND_CREATE_PRICE);
 				return land.createLand(founder, baseChunk);
 				
 			}else{
@@ -62,6 +68,11 @@ public class lands {
 	public static boolean createCity(String cityName, RPPlayer founder){
 		Player p = founder.getBukkitPlayer();
 		
+		if(!founder.hasEnoughMoney(reference.CITY_CREATE_PRICE)) {
+			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+			return false;
+		}
+		
 		if(CustomConfig.exists(cityName + ".yml", reference.FOLDER_CITYS.toString())){
 			p.sendMessage(prefix + pMsg.ERR_CITY_EXISTS);
 			return false;
@@ -77,6 +88,7 @@ public class lands {
 					OLCity city = new OLCity(cityName);
 					RPGManager.citys.put(cityName, city);
 					founder.setCity(city);
+					founder.pay(reference.CITY_CREATE_PRICE);
 					return city.createCity(founder, baseChunk);
 				}else{
 					p.sendMessage(prefix + pMsg.ERR_CHUNK_OWNED_BY_OTHER_LAND);
@@ -230,16 +242,28 @@ public class lands {
 				if(plot == null){
 					p.sendMessage(prefix + pMsg.ERR_NOT_INSIDE_PLOT);
 				}else{
-					plot.setOwner(p.getUniqueId());
-					return true;
+					if(player.hasEnoughMoney(plot.getPrice())) {
+						plot.setOwner(p.getUniqueId());
+						p.sendMessage(prefix + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plot.getName()));
+						return true;
+					}else{
+						p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+						return false;
+					}
 				}
 			}else{
 				if(!city.plotExists(name)){
 					p.sendMessage(prefix + pMsg.ERR_PLOT_NOT_EXISTS);
 				}else{
 					OLPlot plot = city.getPlot(name);
-					plot.setOwner(p.getUniqueId());
-					return true;
+					if(player.hasEnoughMoney(plot.getPrice())) {
+						plot.setOwner(p.getUniqueId());
+						p.sendMessage(prefix + pMsg.MSG_PLOT_CLAIMED.replace("{plot}", plot.getName()));
+						return true;
+					}else {
+						p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+						return false;
+					}
 				}
 			}
 		}else{
@@ -460,7 +484,7 @@ public class lands {
 		if(plot != null){
 			int price = plot.getPrice();
 			plot.setOwner(null);
-			Money.addMoney(player, price / 2);
+			player.addMoney(price / 2);
 			return true;
 		}else{
 			p.sendMessage(prefix + pMsg.ERR_PLAYER_OWNS_NO_PLOT);
