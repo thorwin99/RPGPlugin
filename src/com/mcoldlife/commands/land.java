@@ -5,7 +5,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.essentials.mcoldlife.main.CustomConfig;
 import com.essentials.mcoldlife.main.Reference;
 import com.mcoldlife.items.Conquester;
 import com.mcoldlife.objects.OLCity;
@@ -14,7 +13,6 @@ import com.mcoldlife.objects.RPGManager;
 import com.mcoldlife.objects.RPPlayer;
 import com.mcoldlife.rpg.lands;
 import com.mcoldlife.rpg.pMsg;
-import com.mcoldlife.rpg.reference;
 
 public class land implements CommandExecutor{
 
@@ -74,7 +72,7 @@ public class land implements CommandExecutor{
 				break;
 			}
 		}else{
-			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_CITY_LIST);
+			p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_LAND_LIST);
 		}
 	}
 
@@ -114,7 +112,7 @@ public class land implements CommandExecutor{
 	private void printCitys(Player player){
 		RPPlayer p = RPGManager.getPlayer(player);
 		OLLand land = p.getLand();
-		final String list = "§8----------- §aCitys §8-----------";
+		final String list = "§8----------- §aCitys of your Land§8-----------";
 		player.sendMessage(list);
 		for(OLCity city : land.getCitys()){
 			player.sendMessage("§8- §a" + city.getName());
@@ -125,11 +123,11 @@ public class land implements CommandExecutor{
 	 * @param p CommandSender
 	 */
 	private void printLands(CommandSender p){
-		String[] lands = CustomConfig.getFilesInFolder(reference.FOLDER_CITYS.toString());
-		final String list = "§8----------- §Lands §8-----------";
+		
+		final String list = "§8----------- §aLands §8-----------";
 		p.sendMessage(list);
-		for(String land : lands){
-			p.sendMessage("§8- §a" + land);
+		for(OLLand land : RPGManager.getLands().values()){
+			p.sendMessage("§8- §a" + land.getName());
 		}
 		
 	}
