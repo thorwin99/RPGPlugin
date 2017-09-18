@@ -36,7 +36,7 @@ public class pMsg {
 	public static String ERR_PLOT_OWNED = "§cDas Grundstück gehört jemandem.";
 	public static String ERR_NOT_INSIDE_PLOT = "§cDu Befindest dich nicht in einem Grundstück.";
 	
-	public static String ERR_MONEY_NOT_ENOUGHT = "§cDu hast zu wenig Geld.";
+	public static String ERR_MONEY_NOT_ENOUGHT = "§cDu hast zu wenig Geld. Du benötigst §6{geld} Gold.";
 	public static String ERR_MONEY_NEEDED = "§cDu benötigst §6{money}";
 	
 	public static String ERR_CMD_USAGE_JOB_NOT_FOUND = "§cDer Job §6{job} §cexistiert nicht.";

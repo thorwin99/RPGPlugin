@@ -48,6 +48,9 @@ public class plot implements CommandExecutor{
 					p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT);
 					break;
 				}
+			}else {
+				p.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_USAGE_PLOT);
+				return false;
 			}
 		}else{
 			sender.sendMessage(Reference.CHAT_PREFIX + pMsg.ERR_CMD_SENDER_NOT_PLAYER);

@@ -27,7 +27,7 @@ public class lands {
 		Player p = founder.getBukkitPlayer();
 		
 		if(!founder.hasEnoughMoney(reference.LAND_CREATE_PRICE)) {
-			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT.replace("{geld}", reference.LAND_CREATE_PRICE + ""));
 			return false;
 		}
 		
@@ -69,7 +69,7 @@ public class lands {
 		Player p = founder.getBukkitPlayer();
 		
 		if(!founder.hasEnoughMoney(reference.CITY_CREATE_PRICE)) {
-			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT);
+			p.sendMessage(prefix + pMsg.ERR_MONEY_NOT_ENOUGHT.replace("{geld}", reference.CITY_CREATE_PRICE + ""));
 			return false;
 		}
 		
